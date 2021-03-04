@@ -1,0 +1,170 @@
+\documentclass{homework}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{braket}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{verbatim}
+\usepackage{bbm}
+
+
+% CHANGE THE FOLLOW THREE LINES!
+\newcommand{\hwname}{Lu Si}
+\newcommand{\hwemail}{sil18@mails.tsinghua.edu.cn}
+\newcommand{\hwnum}{5}
+
+% CHANGE THESE ONLY ONCE PER CLASS
+\newcommand{\hwtype}{Exercise}
+\newcommand{\hwclass}{Probability Theory}
+
+\begin{document}
+
+\maketitle
+\textbf{Note}: Solving steps are required for all questions.
+
+\question %No.1
+Yes. \\
+We know that $X \sim N(0,1)$. Let $Y = (-1)^{Z}X$, where $Z \sim \mathrm{Ber}(\frac{1}{2})$.\\
+We can verify that \\
+$F_{Y}(y) = P(Y \leq y) = P(Y \leq y, Z=0) + P(Y \leq y, Z=1) \\
+=P(Y \leq y \mid Z=0)P(Z=0)+P(Y \leq y \mid Z=1)P(Z=1) \\
+=\frac{1}{2}P(X \leq y \mid Z=0)+\frac{1}{2}P(-X \leq y \mid Z=1) \\
+=P(X \leq y) = F_{X}(y)$, which implies $Y \sim N(0,1)$.\\
+However, $P(X+Y=0)=\frac{1}{2}$, which means $X+Y$ are not Gaussian distribution.
+
+\question %No.2
+(This is one student's solution)\\
+$X \sim N(0,1) .$ Proof is given as below.
+Let $X_{1}, X_{2}, \cdots, X_{n}, \cdots$ be i.i.d. random variables of the same distribution with $X$.
+Define $S_{n}=\sum_{i=1}^{n} X_{i} .$ Let $T_{1}=\frac{X_{1}+X_{2}}{\sqrt{2}}=\frac{S_{2}}{\sqrt{2}}, T_{1}^{\prime}=\frac{X_{3}+X_{4}}{\sqrt{2}}=\frac{S_{4}-S_{2}}{\sqrt{2}},$ so $T_{1}, T_{1}^{\prime}$ follows the same
+distribution with $X$. Let $T_{2}=\frac{T_{1}+T_{1}^{\prime}}{\sqrt{2}}=\frac{S_{4}}{\sqrt{4}}$ also follows the same distribution of $X$. And define $T_{n}=\frac{S_{2^n}}{\sqrt{2^{n}}},$ and its distribution is also the same distribution of $X$.
+According to CLT,
+$$
+\frac{S_{2^{n}}}{\sqrt{2^{n}}} \stackrel{d}{\longrightarrow} N(0,1)
+$$
+So the distribution of $X$ is $N(0,1)$\\
+
+(Another proof) Since that $(X+Y)/\sqrt{2}$ has the same distribution as $X$, we can get \\
+$\phi_{X}\left(t\right)=\phi_{\frac{x+Y}{\sqrt{2}}}(t)=\phi_{X}\left(\frac{t}{\sqrt{2}}\right) \phi_{Y}\left(\frac{t}{\sqrt{2}}\right)=\phi_{X}^{2}\left(\frac{t}{\sqrt{2}}\right)$.\\
+Therefore, $\phi_{X}\left(t\right) = a^{\frac{bt^2}{2}}$ where $a, b$ are real numbers.\\
+Also, $\mathbb{E}[X] = 0$ and $\mathrm{Var}(X)=1$, we get $\mathbb{E}[X^2]=(\mathbb{E}[X])^2+\mathrm{Var}(X)=1$.\\
+Clearly, the characteristic function $\phi_{X}(t)$ has a 2-th derivative at zero, which means \\
+$\phi_{X}^{(2)}(0)=i^2\mathbb{E}[X^2]$. Solving both sides we get $b\mathrm{ln}a=-1$.\\
+Therefore, $\phi_{X}(t)=e^{-\frac{t^2}{2}}$, which implies $X$ is a standard Gaussian distribution and is the only solution.
+
+\question %No.3
+We define random vectors $\mathbf{X}=[X_1,\cdots, X_{2n-1}]^\mathrm{T}$ and $\mathbf{Y}=[X_1,X_2-X_1 \cdots, X_{2n-1}-X_{2n-2}]^\mathrm{T}$.\\
+Let $\mathbf{A}=\left[\begin{array}{cccccc}
+    1 & 0 & 0 & \ldots & 0  \\
+    1 & 1 & 0 & \ldots & 0 \\
+      &   &   & \ddots &   \\
+    1 & 1 & 1 & \ldots & 1 
+    \end{array}\right]_{(2n-1)\times (2n-1)}$ 
+and $\mathbf{B}=\left[\begin{array}{cccccc}
+    1 & 0 & 0 & \ldots & 0 & 0 \\
+    -1 & 1 & 0 & \ldots & 0 & 0 \\
+     &  &  & \ddots &  &  \\
+    0 & 0 & 0 & \ldots & -1 & 1
+    \end{array}\right]_{(2n-1)\times (2n-1)}$. \\
+We can get $\mathbf{X}=\mathbf{A}\mathbf{Y}$ and $\mathbf{Y}=\mathbf{B}\mathbf{X}$.\\
+Then density function of $\mathbf{X}$ can be written as $f_{\mathbf{X}}= c_{n} \exp \left[-\frac{1}{2}\left(\mathbf{x}^{T} \mathbf{B^\mathrm{T}}\mathbf{B} \mathbf{x}\right)\right]$.\\
+We can verify that $\mathbf{B^\mathrm{T}}\mathbf{B}$ is positive definite. Clearly, $\mathbf{X}$ is a Gaussian random vector.\\
+We can get $\text{rank}(\mathbf{B^\mathrm{T}}\mathbf{B})=2n-1$ and $\mid \mathbf{B^\mathrm{T}}\mathbf{B}\mid = 2n$. Therefore, $c_n = \frac{\sqrt{2n}}{\sqrt{(2\pi)^{2n-1}}}$.\\
+
+Also, $\text{Cov}[\mathbf{X}] = (\mathbf{B}^\mathrm{T} \mathbf{B})^{-1} = \mathbf{A} \mathbf{A}^\mathrm{T}$, $\text{Var}(X_n)=(\mathbf{A} \mathbf{A}^\mathrm{T})_{(n,n)} = \frac{n}{2}$.
+
+\question%No.4
+(i) We know that $X_1, X_2, \ldots $ be i.i.d. and $X_i \sim Ca(1)$. $S_n = X_1+X_2+\ldots+X_n$.\\
+According to the semigroup property of Cauchy, $S_n \sim Ca(n)$ and $S_n/n \sim Ca(1)$.\\
+Clearly, $\{S_n/n\}_{n=1}^{\infty}$ converge to $S \sim Ca(1)$ in distribution.\\
+
+(ii) We will prove that $\{S_n/n\}_{n=1}^{\infty}$ converge in probability which also means converging in distribution.\\
+We know $S_n \sim Ca(n)$ and $F_{S_n}(x) = \int_{-\infty}^{x}\frac{n}{\pi(n^2+t^2)}dt 
+= \frac{1}{\pi}\arctan(\frac{t}{n})\mid^x_{-\infty} = \frac{1}{\pi}[\arctan(\frac{x}{n})+\frac{\pi}{2}]$.
+
+Define random variable $S=0$ with probability 1. For $\epsilon > 0$\\
+$P(\mid \frac{S_n}{n^2} - 0\mid \geq \epsilon) 
+= P(S_n \leq -n^2\epsilon) + P(S_n \geq n^2\epsilon)
+= \frac{1}{\pi}[\arctan(-n\epsilon)+\frac{\pi}{2}]+1-\frac{1}{\pi}[\arctan(n\epsilon)+\frac{\pi}{2}]$.\\
+So, $\lim_{n \to \infty}P(\mid \frac{S_n}{n^2} - 0\mid \geq \epsilon) = 0$. $\frac{S_{n}}{n^{2}} \stackrel{p.}{\rightarrow} 0$.\\
+
+(iii)We know the characteristic function of $X_i \sim Ca(1)$ is $\phi_{X}(t)=e^{-|t|}$.\\
+ Then, we get $\phi_{{S_n}/{\sqrt{n}}}(t)=\left[\phi_{X}\left(\frac{t}{n^{1/2}}\right)\right]^{n}=e^{-|t|\sqrt{n}}$.\\
+ As $n \to \infty$,  $\phi_{{S_n}/{\sqrt{n}}}(0)=1$ and $\phi_{{S_n}/{\sqrt{n}}}(t)=0$ for $t \neq 0$. $\lim_{n \to \infty} \phi_{{S_n}/{\sqrt{n}}}(t)$ is not continuous at $t=0$.\\
+ So, This sequence does not converge in distribution.
+
+\question %No.5
+(i)We know $P(X_i=i)=P(X_i=-i)=\frac{1}{2}$. So, $\mathbb{E}[X_i] = 0$ and $\text{Var}(X_i) = i^2$.\\   
+$S_n = X_1+X_2+\ldots+X_n$. We can get $\mathbb{E}[S_n] = \sum_{i=1}^{n}\mathbb{E}[X_i] = 0$ and $\text{Var}(S_n) = \sum_{i=1}^{n} \text{Var}[X_i] = \sum_{i=1}^{n}i^2$.\\
+Therefore, $\mathbb{E}[\frac{S_n}{n^2}]=0$ and 
+$\text{Var}(\frac{S_n}{n^2}) = \frac{\sum_{i=1}^{n}i^2}{n^4} = \frac{n(n+1)(2n+1)}{6n^4}$ converges to 0 as $n \to \infty$.\\
+For $\epsilon > 0$, according to Chebyshev inequality,  \\
+$P(\mid \frac{S_n}{n^2} - \mathbb{E}[\frac{S_n}{n^2}]\mid \geq \epsilon) = P(\mid \frac{S_n}{n^2} - 0]\mid \geq \epsilon)\leq \frac{S_n}{n^2}/\epsilon^2 = 0$ as $n \to \infty$.
+Thus, $\frac{S_{n}}{n^{2}} \stackrel{p.}{\rightarrow} 0 \Rightarrow \frac{S_{n}}{n^{2}} \stackrel{d.}{\rightarrow} 0$.\\
+
+(ii)Based on (i), we can get $\lim_{n \to \infty}S_n/n^\frac{3}{2} = \lim_{n \to \infty} \frac{n(n+1)(2n+1)}{6n^3} = \frac{1}{3}$.\\
+We can verify that this sequence satisfies the Lindeberg conditions 
+where $s_n^2 = \text{Var}[S_n] = \frac{n(n+1)(2n+1)}{6}$, $X_i^2 = i^2$, and $\frac{1}{s_n^2}\sum_{i=1}^{n}\mathbb{E}[X_i^2I_{\{\mid X_i\mid \geq \epsilon s_n\}}] \to 0$ as $n \to \infty$ for every $\epsilon >0$.\\
+According to the Lindeberg-Feller Central Limit Theorem, $S_{n} / n^{\frac{3}{2}} \stackrel{d}{\rightarrow} N\left(0, \frac{1}{3}\right)$.\\
+
+(iii) $\lim _{n \rightarrow \infty} P\left(\frac{S_{n}}{n} \leqslant x\right)=\lim _{n \rightarrow \infty} P\left(\frac{S_{n}}{n^{3 / 2}} \leqslant \frac{x}{\sqrt{n}}\right)=\lim _{n \rightarrow \infty} P\left(\frac{S_{n}}{n^{3 / 2}} \leqslant 0\right)=\frac{1}{2}$.
+
+
+\question %No.6
+(This is one student's solution)\\
+(i)$$
+\begin{array}{l}
+\text { According to } \operatorname{SLLN}, \frac{1}{n} \sum_{i=1}^{n} \log \left(X_{i}\right) \stackrel{a . s}{\rightarrow} E\left[\log \left(X_{1}\right)\right]=-\frac{1}{2} \log 2 \text { and } Y_{n}=\prod_{i=1}^{n} X_{i}=\exp \left(\sum_{i=1}^{n} \log \left(X_{i}\right)\right), \text { so } \\
+\qquad P\left(\left\{w: \lim _{n \rightarrow \infty} \sqrt[n]{Y_{n}(w)}=\frac{1}{\sqrt{2}}\right\}\right)=P\left(\left\{w: \lim _{n \rightarrow \infty} \frac{1}{n} \sum_{i=1}^{n} \log \left(X_{i}(w)\right)=-\frac{1}{2} \log 2\right\}\right)=1
+\end{array}
+$$
+According to root criterion for convergence,
+$$
+P\left(\left\{w: \lim _{n \rightarrow \infty} S_{n}(w) \text { converges }\right\}\right)=P\left(\left\{w: \lim _{n \rightarrow \infty} \sqrt[n]{Y_{n}(w)}=\frac{1}{\sqrt{2}}\right\}\right)=1.
+$$
+So $S_{n}$ converges almost surely. Denote the limit random variable as $S$.\\
+Define $T_{n}^{(1)}=1+X_{n}, T_{n}^{(2)}=1+X_{n-1} T_{n}^{(1)}, T_{n}^{(i+1)}=1+X_{n-i} T_{n}^{(i)}, i=1,2, \cdots, n-1,$ by definition,
+$$
+T_{n}^{(n)}=1+X_{1}+X_{1} X_{2}+\cdots+X_{1} X_{2} \cdots X_{n}=S_{n}+1
+$$
+Notice that $T_{n}^{(i)}$ are just functions of $\left(X_{n-i+1}, \cdots, X_{n}\right),$ so $T_{n}^{(i)}$ is independent of $X_{n-i}$
+$$
+E\left[T_{n}^{(i+1)}\right]=E\left[1+X_{n-i} T_{n}^{(i)}\right]=1+E\left[X_{n-i}\right] E\left[T_{n}^{(i)}\right]=1+\frac{3}{4} E\left[T_{n}^{(i)}\right]
+$$
+And $E\left[T_{n}^{(1)}\right]=\frac{7}{4}$ so $E\left[T_{n}^{(n)}\right]=4-3 \times\left(\frac{3}{4}\right)^{n}, E\left[S_{n}\right]=E\left[T_{n}^{(n)}\right]-1=3\left(1-\left(\frac{3}{4}\right)^{n}\right)$,
+
+$$
+E[S]=\lim _{n \rightarrow \infty} 3\left(1-\left(\frac{3}{4}\right)^{n}\right)=3
+$$
+Because
+$$
+\begin{aligned}
+\operatorname{Var}(X Y) &=E\left[X^{2} Y^{2}\right]-(E[X Y])^{2}=E\left[X^{2}\right] E\left[Y^{2}\right]-(E[X] E[Y])^{2} \\
+&=\operatorname{Var}(X) \operatorname{Var}(Y)+\operatorname{Var}(X)(E[Y])^{2}+\operatorname{Var}(Y)(E[X])^{2} \\
+& \operatorname{Var}\left(T_{n}^{(i+1)}\right)=\frac{5}{8} \operatorname{Var}\left(T_{n}^{(i)}\right)+\frac{1}{16}\left(4-3 \times\left(\frac{3}{4}\right)^{i}\right)^{2}
+\end{aligned}
+$$
+And $\operatorname{Var}\left(T_{n}^{(1)}\right)=\frac{1}{16}, \operatorname{Var}\left(T_{n}^{(n)}\right)=\left(\frac{5}{8}\right)^{n} \sum_{i=0}^{n-1}\left(\frac{8}{5}\right)^{i+1}\left(1-\left(\frac{3}{4}\right)^{i+1}\right)^{2}$
+$$
+\operatorname{Var}(S)=\lim _{n \rightarrow \infty}\operatorname{Var}\left(T_{n}^{(n)}\right)=\frac{8}{3}
+$$
+Note: let $n, i \rightarrow \infty$ , we can get
+$$
+\left\{\begin{array}{l}
+E[S]=1+\frac{3}{4} E[S] \\
+\operatorname{Var}(S)=\frac{5}{8} \operatorname{Var}(S)+1
+\end{array}\right.
+$$
+which also leads to $E[S]=3, \operatorname{Var}(S)=\frac{8}{3}$\\
+
+(ii)
+Also we have $E\left[\log \left(X_{1}\right)\right]=-\frac{1}{2} \log 2<0,$ thus
+$$
+P\left(\left\{w: \lim _{n \rightarrow \infty} S_{n}(w) \text { converges }\right\}\right)=P\left(\left\{w: \lim _{n \rightarrow \infty} \sqrt[n]{Y_{n}(w)}=\frac{1}{\sqrt{2}}\right\}\right)=1
+$$
+So $S_{n}$ converges almost surely. But $E\left[S_{n}\right]$ and $\left(S_{n}\right)$ increases to $\infty !$
+
+
+\end{document}

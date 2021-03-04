@@ -1,0 +1,86 @@
+\documentclass{homework}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{braket}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{verbatim}
+
+% CHANGE THE FOLLOW THREE LINES!
+\newcommand{\hwname}{Lu Si}
+\newcommand{\hwemail}{sil18@mails.tsinghua.edu.cn}
+\newcommand{\hwnum}{1}
+
+% CHANGE THESE ONLY ONCE PER CLASS
+\newcommand{\hwtype}{Exercise}
+\newcommand{\hwclass}{Probability Theory}
+
+\begin{document}
+
+\maketitle
+\textbf{Note}: Solving steps are required for all questions.
+
+\question %No.1
+\textbf{(20 points)}\\
+No. Suppose $\Omega=\{0,1\}$, $X$ and $Y$ are i.i.d Bernoulli distribution with parameter $p$, where $0\leq p \leq 1$. $Z=X \oplus Y$. We can verify that
+$P(X \bigcap Y)=P(X)P(Y)$,
+$P(X \bigcap Z)=P(X)P(Z)$, and
+$P(Y \bigcap Z)=P(Y)P(Z).$ However, 
+$P(X \bigcap Y \bigcap Z) \neq P(X)P(Y)P(Z)$ implies $X, Y, Z$ are not mutually independent.
+
+\question %No.2
+\textbf{(20 points)}\\
+$P(A_{1})=1/128$\\
+$P(A_{2})=1/64$\\
+$P(A_{3})=35/128$\\
+$P(A_{4})=1/32$\\
+$P(A_{1}\mid A_{3}) = 1/35$\\
+$P(A_{2} \mid A_{3})=2/35$
+
+\question %No.3
+\textbf{(20 points)}\\
+Let $\omega \in \Omega=\{0, 1, 2, 3, 4, 5,6,7,8\}$ be the number of red corners.\\
+$P(A\bigcap \{4\})=6p^{4}(1-p)^{4}$\\
+$P(A\bigcap \{5\})=24p^{5}(1-p)^{3}$\\
+$P(A\bigcap \{6\})=24p^{6}(1-p)^{2}$\\
+$P(A\bigcap \{7\})=8p^{7}(1-p)$\\
+$P(A\bigcap \{8\})=p^{8}$\\
+(1) $P(A \mid \{5\})= \frac{P(A \bigcap \{5\})}{P(\{5\})}=\frac{24p^{5}(1-p)^{3}}{\binom{8}{5}p^{5}(1-p)^{3}}=3/7$\\
+(2) $P(A \mid \{5,6,7,8\})=\frac{P(A\bigcap\{5,6,7,8\})}{P(\{5,6,7,8\})}=\frac{24p^{5}(1-p)^{3}+24p^{6}(1-p)^{2}+8p^{7}(1-p)+p^{8}}{\binom{8}{5}p^{5}(1-p)^{3}+\binom{8}{6}p^{6}(1-p)^{2}+\binom{8}{7}p^{7}(1-p)+p^{8}}$\\
+(3) $P(A)=6p^{4}(1-p)^{4}+24p^{5}(1-p)^{3}+24p^{6}(1-p)^{2}+8p^{7}(1-p)+p^{8}$
+
+\question %No.4
+\textbf{(20 points)}\\
+(1) 16 \\
+(2) 32
+
+
+\question%No.5
+\textbf{(10 points)}\\
+Let $B_{i}=\bigcup_{n=i}^{\infty}A_{n}$, and note that $A=\bigcap_{i=1}^{\infty}\bigcup_{n=i}^{\infty}A_{n}=\bigcap_{i=1}^{\infty}B_{i}$. We claim that $P(B_{i}^{c})=0$ for all $i$. This will imply the desired result because $P(A^{c})=P(\bigcup_{i=1}^{\infty}B_{i}^{c})\le \sum_{i=1}^{\infty}P(B_{i}^{c})=0$. \\
+Using independence, we have \\
+$P(B_{i}^{c})=P(\bigcap_{n=i}^{\infty}A_{n}^{c})=\prod_{n=i}^{\infty}(1-P(A_{n})) =0$.
+
+The last equality holds since: \\
+$P(\bigcup_{n=1}^{\infty}A_{n})=1 \Rightarrow P(\bigcap_{n=1}^{\infty}A_{n}^{c})=\prod_{n=1}^{\infty}(1-P(A_{n}))=\prod_{n=1}^{i-1}(1-P(A_{n}))\prod_{n=i}^{\infty}(1-P(A_{n}))=0$.\\
+Since $P(A_{n})<1$, $\prod_{n=1}^{i-1}(1-P(A_{n})) \neq 0$, thus $\prod_{n=i}^{\infty}(1-P(A_{n}))=0$. \\
+Therefore, $P(A)=P(\bigcap_{i=1}^{\infty}\bigcup_{n=i}^{\infty}A_{n})=1$.$\Box$
+
+
+\question %No. 6
+(1)\textbf{(10 points)}\\
+For every $c \in \mathbb{R}, \{\omega \mid Y(\omega) \le c\}=\{\omega \mid X_{1}(\omega)+X_{2}(\omega)\ \le c\}$. We can find a rational number $q \in \mathbb{Q}$ to make $X_{1}(\omega) \le q$ and $X_{2}(\omega) \le c-q$. \\
+Thus, we can get $\{\omega \mid X_{1}(\omega)+X_{2}(\omega)\ \le c\}=\bigcup_{q \in \mathbb{Q}}\{\omega \mid X_{1}(\omega) \le q\} \bigcap \{\omega \mid X_{2}(\omega) \le c-q\}$ \\
+Since $X_{1}$ and $X_{2}$ are random variables, $\{\omega \mid X_{1}(\omega) \le q\},\{\omega \mid X_{2}(\omega) \le c-q\} \in \mathcal{F}$. $\mathbb{Q}$ is countable, we get $\{\omega \mid Y(\omega) \le c\} \in \mathcal{F}$. $\Box$
+
+(2)\textbf{(not to be graded)}\\
+Since $X(\omega)=\lim_{n \to \infty}X_{n}(\omega)$, for all $1/m > 0 (m \in \mathbb{N})$, 
+there is an number $n$, as $i \ge n$, $\mid X_{i}(\omega)-X(\omega)\mid < 1/m$. 
+For every $c \in \mathbb{R}$, $X(\omega) \le c$ implies $X_{i}(\omega) \le X(\omega)+1/m \le c + 1/m$. 
+We can get $\omega \in \bigcap_{m}\bigcup_{n}\bigcap_{i\ge n}\{\omega \mid X_{i}(\omega)\le c+1/m\}$. 
+Since $\{\omega \mid X_{i}(\omega)\le c+1/m\} \in \mathcal{F}$, $m, n$, and $i$ are countable, $\{\omega \mid X(\omega) \le c\} \in \mathcal{F}$. $\Box$ \\
+
+
+\end{document}

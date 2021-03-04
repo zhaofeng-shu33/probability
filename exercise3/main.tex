@@ -1,0 +1,174 @@
+\documentclass{homework}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{braket}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{verbatim}
+\usepackage{bbm}
+
+
+% CHANGE THE FOLLOW THREE LINES!
+\newcommand{\hwname}{Lu Si}
+\newcommand{\hwemail}{sil18@mails.tsinghua.edu.cn}
+\newcommand{\hwnum}{3}
+
+% CHANGE THESE ONLY ONCE PER CLASS
+\newcommand{\hwtype}{Exercise}
+\newcommand{\hwclass}{Probability Theory}
+
+\begin{document}
+
+\maketitle
+\textbf{Note}: Solving steps are required for all questions.
+
+\question %No.1
+No. \\
+Let $\Omega=(0,1),$ let $\mathcal{F}$ be the Borel sigma-field $\mathcal{B}$ on [0,1] and 
+let $\mathbb{P}$ be the Lebesgue probability measure. 
+Let
+$$
+X_{n}(\omega)=-\frac{1}{n\omega}
+$$
+We can prove that $X_{n+1}(\omega) \geq X_{n}(\omega)$ for all $n \geq 1$ and $\omega \in \Omega$.\\
+$X(\omega) = \lim_{n \to \infty}X_{n} = 0$, which means $\mathbb{E}[X]=0$. However, $\mathbb{E}[X_{n}]=-\infty$.
+\question %No.2
+(a) Since $X$ is a random variable, $\int_{-\infty}^{\infty}f_{X}(x)dx
+=\int_{-2}^{2}c\sqrt{4-x^2}dx=1$.\\
+$\int_{-2}^{2}c\sqrt{4-x^2}dx=4c\int_{-2}^{2}\sqrt{1-(\frac{x}{2})^2}d\frac{x}{2}
+=4c\int_{-1}^{1}\sqrt{1-x^2}dx$.\\
+Let $x=\sin\theta$, we get $dx=\cos\theta d\theta$ and $\cos \theta=\sqrt{1-x^2}$.\\
+Then, $\int_{-1}^{1}\sqrt{1-x^2}dx = \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\cos\theta\cos\theta d\theta = \frac{\pi}{2}$.\\
+Therefore, $2c\pi=1, c=\frac{1}{2\pi}$.\\
+
+(b) $\mathbb{E}[X^k]=\int_{-\infty}^{\infty}x^kf_{X}(x)dx=\int_{-2}^{2}x^kf_{X}(x)dx$.
+When $k=2n-1 \space (n=1,2,\dots)$, $\mathbb{E}[X^k]=0$.\\
+When $k=2n, \mathbb{E}[X^k]=\int_{-2}^{2}x^kf_{X}(x)dx=2\int_{0}^{2}x^kf_{X}(x)dx
+=\frac{1}{\pi}\int_{0}^{2}x^k \sqrt{4-x^2}dx$\\
+Let $x=2\sin\theta, dx = 2\cos\theta d\theta, \sqrt{4-x^2}=2\cos\theta$.\\
+$\mathbb{E}[X^k]=\frac{1}{\pi}\int_{0}^{2}x^k\sqrt{4-x^2}dx=\frac{2^{k+2}}{\pi}\int_{0}^{\frac{\pi}{2}}\sin^{k}\theta \cos^2\theta d\theta
+=\frac{2^{k+2}}{\pi}\int_{0}^{\frac{\pi}{2}}\sin^{k}\theta (1-\sin^2\theta) d\theta=$\\
+$=\frac{2^{k+2}}{\pi}(\int_{0}^{\frac{\pi}{2}}\sin^{k}\theta d\theta - \int_{0}^{\frac{\pi}{2}}\sin^{k+2}\theta d\theta)$.\\
+
+Let $a_{k}=\int_{0}^{\frac{\pi}{2}}\sin^{k}\theta d\theta$, we will prove that $a_{k}=\frac{k-1}{k}a_{k-2}$, where $k=2n, n=1,2,\dots$.\\
+$a_{k}=\int_{0}^{\frac{\pi}{2}}\sin^{k}\theta d\theta = \int_{0}^{\frac{\pi}{2}}\sin^{k-1}\theta \sin \theta d\theta$.
+Let $\mu=\sin^{k-1}\theta$ and $\upsilon=-\cos\theta$.\\
+$a_{k}=\int_{0}^{\frac{\pi}{2}}\mu d\upsilon = (\mu \upsilon) \bigg|_{0}^{\frac{\pi}{2}}-\int_{0}^{\frac{\pi}{2}}\upsilon d\mu
+=\int_{0}^{\frac{\pi}{2}}(k-1)\sin^{k-2}\theta\cos^2\theta d\theta 
+= (k-1)\int_{0}^{\frac{\pi}{2}}\sin^{k-2}\theta d\theta - (k-1)\int_{0}^{\frac{\pi}{2}}\sin^{k}\theta d\theta$.\\
+So, $a_{k} = (k-1)a_{k-2}-(k-1)a_{k}$, $a_{k}=\frac{k-1}{k}a_{k-2}$.\\
+We know that $a_{0}=\int_{0}^{\frac{\pi}{2}}\sin^{0}\theta d\theta = \frac{\pi}{2}$, then
+$a_{k}=a_{2n}=\frac{(2n-1)}{2n}\frac{(2n-3)}{2n-2}\dots \frac{1}{2}a_{0}=\frac{(2n-1)!!}{(2n)!!}\frac{\pi}{2}
+=\frac{(2n)!}{2^{2n}(n!)^2}\frac{\pi}{2}$.\\
+$\mathbb{E}[X^k]=\frac{2^{k+2}}{\pi}(a_{k}-a_{k+2})=\frac{2^{k+2}}{\pi}\frac{a_{k}}{k+2}
+=\frac{2}{2n+2}\frac{(2n)!}{(n!)^2} = \frac{2}{k+2}\frac{k!}{(\frac{k}{2}!)^2}$.
+
+Therefore, $\mathbb{E}[X^k] = \mathbbm{1}_{\{k=2n,n=1,2,\dots\}}\frac{2}{k+2}\frac{k!}{(\frac{k}{2}!)^2}$.
+
+\question %No.3
+Be careful that we do \textbf{NOT} assume that $X_{i}$ and $Y_{i}$ are independent.\\
+Suppose $\mathbb{P}(X_{i}=1)=p_{i}$ and $\mathbb{P}(Y_{i}=1)=q_{i}, p_{i} \geq q_{i}, i = 1,2,\dots n$, \\
+$X^{(n)}=\sum_{i=1}^{n} X_{i}$ and $Y^{(n)}=\sum_{i=1}^{n} Y_{i}$ are Poisson binomial distributions.\\
+
+We will use Mathematical Induction method to prove this statement.\\
+\textbf{Step 1.} We can easily prove that $\mathbb{P}(X^{(1)} \geq k) \geq \mathbb{P}(Y^{(1)} \geq k)$, for $k=1$.\\
+\textbf{Step 2.} Let us assume that $\mathbb{P}(X^{(j)} \geq k) \geq \mathbb{P}(Y^{(j)} \geq k)$ for all $k = 1,2,\dots, j$.\\
+\textbf{Step 3.} We will prove that $\mathbb{P}(X^{(j+1)} \geq k) \geq \mathbb{P}(Y^{(j+1)} \geq k)$ for all $k = 1,2,\dots, j+1$.\\
+\begin{equation}
+    \begin{aligned}
+        \mathbb{P}(X^{(j+1)} \geq k) &=\mathbb{P}(X^{(j)} \geq k)+\mathbb{P}(X^{(j)} = k-1)p_{j+1}\\
+        &=\mathbb{P}(X^{(j)} \geq k) + \mathbb{P}(X^{(j)} = k-1)(p_{j+1}-q_{j+1}+q_{j+1})\\
+        &=\mathbb{P}(X^{(j)} \geq k) + (\mathbb{P}(X^{(j)} \geq k-1)-\mathbb{P}(X^{(j)} \geq k))q_{j+1} + \mathbb{P}(X^{(j)} = k-1)(p_{j+1}-q_{j+1})\\
+        &=(1-q_{j+1})\mathbb{P}(X^{(j)} \geq k)+q_{j+1}\mathbb{P}(X^{(j)} \geq k-1)+\mathbb{P}(X^{(j)} = k-1)(p_{j+1}-q_{j+1})\\
+        &\geq (1-q_{j+1})\mathbb{P}(Y^{(j)} \geq k)+q_{j+1}\mathbb{P}(Y^{(j)} \geq k-1)\\
+        &=\mathbb{P}(Y^{(j)} \geq k)+\mathbb{P}(Y^{(j)} = k-1)q_{j+1}\\
+        &=\mathbb{P}(Y^{(j+1)} \geq k)
+    \end{aligned}
+\end{equation}
+
+Therefore, $\mathbb{P}(X^{(n)} \geq k) \geq \mathbb{P}(Y^{(n)} \geq k)$, for all $k=1,2,\dots ,n.\blacksquare$ 
+
+\question%No.4
+(a) We have $U \sim U(0,1)$ and $V \sim \text{Exp}(\lambda)$.\\
+Since independence, \\
+$\mathbb{E}[\frac{V^2}{1+U}] = \int_{0}^{1}\int_{0}^{\infty}\frac{v^2}{1+u}f_{U,V}(u,v)dvdu 
+= \int_{0}^{1} \frac{1}{1+u}f_{U}(u)du \int_{0}^{\infty}v^2f_{V}(v)dv = 
+\int_{0}^{1} \frac{1}{1+u}du \int_{0}^{\infty}v^2\lambda e^{-\lambda v}dv = \frac{2\ln 2}{\lambda^2}$.
+
+(b) $\mathbb{P}(U \leq V) = \int_{0}^{1} \int_{u}^{\infty}f_{U,V}(u,v)dvdu
+=\int_{0}^{1} (\int_{u}^{\infty}\lambda e^{-\lambda v}dv) du = \int_{0}^{1}e^{-\lambda u}du =\frac{1-e^{-\lambda}}{\lambda}$.\\
+
+(c) We have $Y=U^2$ and $Z=UV$. Then, $U=\sqrt{Y}$ and $V=ZY^{-\frac{1}{2}}$.\\
+The determinant of the Jacobian matrix is 
+\begin{equation}
+    \begin{aligned}
+        \mid J \mid = \mid \frac{\partial(u,v)}{\partial(y,z)} \mid = 	
+        \begin{vmatrix} 
+
+            \frac{1}{2}y^{-\frac{1}{2}} & 0 \\
+     
+            -\frac{1}{2}zy^{-\frac{3}{2}} & y^{-\frac{1}{2}}
+     
+            \end{vmatrix}	= \frac{1}{2y}
+    \end{aligned}
+\end{equation}
+ 
+$f_{Y,Z}(y,z)=f_{U,V}(u,v)\mid J \mid = \frac{\lambda e^{-\frac{\lambda z}{\sqrt{g}}}}{2 y}$ where $0\leq y\leq 1$ and $z \geq 0$.
+Thus,
+\begin{equation}
+    f_{Y, Z}(y, z)=\left\{\begin{array}{l}
+        \frac{\lambda}{2 y} e^{-\lambda \frac{z}{\sqrt{y}}},  0\leq y\leq 1, z \geq 0\\
+        0, \quad \text { otherwise }
+        \end{array}\right.
+\end{equation}
+
+\question %No.5
+$X_{1}, X_{2}, X_{3}$ are i.i.d. exponential random variables with the same parameter $\lambda$,\\
+which means that $f_{X_{i}}(x) = \lambda e^{-\lambda x}$.\\
+$\mathbb{P}(X_{1}>X_{2}+X_{3})\\
+=\int_{0}^{\infty} \int_{0}^{\infty} \int_{x_{2}+x_{3}}^{\infty} f_{X_{1},X_{2},X_{3}}\left(x_{1}, x_{2}, x_{3}\right) d x_{1} d x_{2} d x_{3} \\
+=\int_{0}^{\infty} \int_{0}^{\infty} \int_{x_{2}+x_{3}}^{\infty} \lambda^{3} e^{-\lambda\left(x_{1}+x_{2}+x_{3}\right)} d x_{1} d x_{2} d x_{3} \\
+=\int_{0}^{\infty} \int_{0}^{\infty} \lambda^{2} e^{-2 \lambda\left(x_{2}+x_{3}\right)} d x_{2} d x_{3}$\\
+$=\frac{1}{2} \int_{0}^{\infty} \lambda e^{-2 \lambda x_{3}} d x_{3}\\
+=\frac{1}{4}$
+
+
+\question %No.6
+Let $A=\begin{bmatrix} X_{1} & X_{3} \\ X_{3} & X_{2} \end{bmatrix}$, the characteristic equation of $A$
+is $\text{det}(A-\lambda I)=(X_{1}-\lambda)(X_{2}-\lambda)-X_{3}^2=0$.\\
+$Y_{1}$ and $Y_{2}$ are two roots of this eqution, we get $\begin{cases}
+    Y_{1}+Y_{2}=X_{1}+X_{2}\\
+    Y_{1}Y_{2}=X_{1}X_{2}-X_{3}^2
+    \end{cases}$.
+Also, $\begin{cases}
+    Y_{1}+Y_{2}=X_{1}+X_{2}\\
+    (Y_{1}-Y_{2})^2=4((\frac{X_{1}-X_{2}}{2})^2+X_{3}^2)
+    \end{cases}$.
+We have $X_{1} \sim N(0,2), X_{2} \sim N(0,2), X_{3} \sim N(0,1)$.\\
+So, $(X_{1}+X_{2}) \sim N(0,4)$, $\frac{X_{1}-X_{2}}{2} \sim N(0,1)$.\\ 
+$(\frac{X_{1}-X_{2}}{2})^2 \sim \chi^2(1), X_{3}^2 \sim \chi^2(1)$, 
+$((\frac{X_{1}-X_{2}}{2})^2 + X_{3}^2) \sim \chi^2(2)$, 
+$4((\frac{X_{1}-X_{2}}{2})^2 + X_{3}^2) \sim \Gamma(1, 8)$.\\
+
+We define $\begin{cases}
+    Z_{1} = Y_{1}+Y_{2}\\
+    Z_{2} = (Y_{1}-Y_{2})^2
+    \end{cases}$.
+Then, $Z_{1} \sim N(0,4)$ and $Z_{2} \sim \Gamma(1,8)$. $Z_{1}$ and $Z_{2}$ are independent.\\
+
+The determinant of the Jacobian matrix is $\mid J \mid = \begin{vmatrix} \frac{\partial(z_{1},z_{2})}{\partial(y_{1},y_{2})}\end{vmatrix}
+=\begin{vmatrix} 1 & 1 \\ 2(y_{1}-y_{2}) & -2(y_{1}-y_{2}) \end{vmatrix}
+=4\mid y_{1}-y_{2} \mid$.\\
+Finally, we get 
+\begin{equation}
+    \begin{aligned}
+        f_{Y_{1}, Y_{2}}(y_{1}, y_{2}) & = f_{Z_{1}, Z_{2}}(y_{1}+y_{2}, (y_{1}-y_{2})^2)\mid J \mid\\
+        &= \frac{1}{2\sqrt{2\pi}}e^{-\frac{(y_{1}+y_{2})^2}{8}} \frac{1}{8}e^{-\frac{(y_{1}-y_{2})^2}{8}}4\mid y_{1}-y_{2}\mid\\
+        &= \frac{1}{4\sqrt{2\pi}} e^{\frac{-y_{1}^2-y_{2}^2}{4}} \mid y_{1}-y_{2}\mid \\
+    \end{aligned}
+\end{equation}
+
+
+\end{document}

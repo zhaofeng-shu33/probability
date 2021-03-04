@@ -1,0 +1,158 @@
+\documentclass{homework}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{braket}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{verbatim}
+
+
+% CHANGE THE FOLLOW THREE LINES!
+\newcommand{\hwname}{Lu Si}
+\newcommand{\hwemail}{sil18@mails.tsinghua.edu.cn}
+\newcommand{\hwnum}{2}
+
+% CHANGE THESE ONLY ONCE PER CLASS
+\newcommand{\hwtype}{Exercise}
+\newcommand{\hwclass}{Probability Theory}
+
+\begin{document}
+
+\maketitle
+\textbf{Note}: Solving steps are required for all questions.
+
+\question %No.1
+The sample space is the set $\Omega=\{1,2,3,4,5,6\}^{3}$. There are $6^3=216$ cases in total. \\
+Let us define $A=$\{3 numbers in strictly increasing order\}, 
+$B=$\{3 numbers in strictly decreasing order\}. \\
+$A=\{123,124,125,126,134,135,136,145,146,156,234,235,236,245,246,256,345,346,356,456\}$,\\
+$B=\{321,421,521,621,431,531,631,541,641,651,432,532,632,542,642,652,543,643,653,654\}$.\\
+$\mathbb{P}(A)=\mathbb{P}(B)=\frac{20}{216}=\frac{5}{54}$.
+
+\question %No.2
+(i) This problem can be written as:\\
+\begin{equation}
+    \begin{aligned}
+        \max_{p_{k}} \quad & -\sum_{k=1}^{n}p_{k}log(p_{k}) \\
+        \textrm{s.t.} \quad & \sum_{k=1}^{n}p_{k}=1\\
+        &\sum_{k=1}^{n}p_{k}x_{k}=\mu
+    \end{aligned}
+\end{equation}
+We form a Langrangian and introduce Lagrange multipliers $\lambda_{0}$ and $\lambda_{1}$.
+\begin{equation}
+    \mathcal{L}(p_{k}, \lambda_{0}, \lambda_{1})=-\sum_{k=1}^{n}p_{k}log(p_{k})+
+    \lambda_{0}(\sum_{k=1}^{n}p_{k}-1)+
+    \lambda_{1}(\sum_{k=1}^{n}p_{k}x_{k}-\mu)
+\end{equation}
+Take all partial derivatives of $\mathcal{L}$ with respect to $p_{k}, \lambda_{0}$ and $\lambda_{1}$, we get
+\begin{equation}
+    \begin{aligned}
+        &\frac{\partial \mathcal{L}}{\partial p_{k}}=-logp_{k}-1+\lambda_{0}+\lambda_{1}x_{k}=0\\
+        &\frac{\partial \mathcal{L}}{\partial \lambda_{0}}=\sum_{k=1}^{n}p_{k}-1=0\\
+        &\frac{\partial \mathcal{L}}{\partial \lambda_{1}}=\sum_{k=1}^{n}p_{k}x_{k}-\mu=0
+    \end{aligned}
+\end{equation}
+So, $p_{k}=Cr^{x_{k}}$, where $C=e^{\lambda_{0}-1}, r=e^{\lambda{1}}$.
+
+(ii) Use the conditions that
+\begin{equation}
+    \begin{aligned}
+        &\sum_{k=1}^{\infty}p_{k}=\sum_{k=1}^{\infty}Cr^{k}=1 \\
+        &\sum_{k=1}^{\infty}p_{k}x_{k}=\sum_{k=1}^{\infty}Cr^{k}k=\mu
+    \end{aligned}
+\end{equation}
+We get $C=\frac{1}{\mu-1}$ and $r=\frac{\mu-1}{u}$, $p_{k}=(1-\frac{1}{\mu})^{k-1}\frac{1}{u}$ which is geometric distribution with parameter $\frac{1}{\mu}$.
+
+\question %No.3
+
+(i) $\sum_{n=1}^{\infty}\frac{(-1)^{n+1}}{n} =\ln(1-(-1))=\ln 2$ (Taylor series of $\ln(1-x)$).\\
+\\
+(ii) $\sum_{n=1}^{\infty}(\frac{1}{2n-1}-\frac{1}{4n-2}-\frac{1}{4n})
+=\sum_{n=1}^{\infty}\frac{1}{2}(\frac{1}{2n-1}-\frac{1}{2n})=\frac{1}{2}\sum_{n=1}^{\infty}\frac{(-1)^{n+1}}{n}=\frac{ln2}{2}$.\\
+\\
+(iii) $\sum_{n=1}^{\infty}\frac{1}{n}=1+\frac{1}{2}+\frac{1}{3}+\frac{1}{4}+ \cdots 
+> 1+\frac{1}{2}+(\frac{1}{4}+\frac{1}{4})+(\frac{1}{8}+\frac{1}{8}+\frac{1}{8}+\frac{1}{8})+\cdots
+=1+\frac{1}{2}+\frac{1}{2}+\frac{1}{2}+\cdots = \infty$.
+
+\question%No.4
+(i) $X \sim$ Geometric($p$), we get $\mathbb{E}[X]=\frac{1}{p}, var(X)=\frac{1-p}{p^2}$ 
+and $\mathbb{E}(X^2)=(\mathbb{E}(X))^2+var(X)=\frac{2-p}{p^2}$. Then, \\
+\begin{equation}
+    \begin{aligned}
+        \mathbb{E}[X^3 \mid X>1] &=\mathbb{E}[(X-1+1)^3 \mid X>1] \\
+                                 &=\mathbb{E}[(X-1)^3+3(X-1)^2+3(X-1)+1 \mid X>1] \\
+                                 &=\mathbb{E}[X^3]+3\mathbb{E}[X^2]+3\mathbb{E}[X]+1
+    \end{aligned}
+\end{equation}
+The last equality holds since $P(X-1=k \mid X>1=P(X=k)$.\\
+Since $\mathbb{E}[X^3]= \mathbb{E}[X^3 \mid X>1](1-p)+p = 
+(\mathbb{E}[X^3]+3\mathbb{E}[X^2]+3\mathbb{E}[X]+1)(1-p)+p$, 
+we can get $\mathbb{E}[X^3]=\frac{p^2-6p+6}{p^3}$.\\
+\\
+Similarly, 
+\begin{equation}
+    \begin{aligned}
+        \mathbb{E}[X^4 \mid X>1] &= \mathbb{E}[(X-1)^4+4(X-1)^3+6(X-1)^2+4(X-1)+1 \mid X>1]\\
+                                 &=\mathbb{E}[X^4]+4\mathbb{E}[X^3]+6\mathbb{E}[X^2]+4\mathbb{E}[X]+1
+    \end{aligned}
+\end{equation}
+Since $\mathbb{E}[X^4]= \mathbb{E}[X^4 \mid X>1](1-p)+p$, we can get $\mathbb{E}[X^4]=\frac{-p^3+14p^2-36p+24}{p^4}$.\\
+\\
+(ii) $X \sim$ Poisson($\lambda$), $\mathbb{E}[X]=\lambda, \mathbb{E}[X^2]=\mathbb{E}[X(X-1)]+\mathbb{E}[X]=\lambda^2+\lambda$.\\
+Similarly, we can get $\mathbb{E}[X^3]=\mathbb{E}[X(X-1)(X-2)]+3\mathbb{E}[X^2]-2\mathbb{E}[X]=\lambda^3+3\lambda^2+\lambda$ \\
+and $\mathbb{E}[X^4]=\mathbb{E}[X(X-1)(X-2)(X-3)]+6\mathbb{E}[X^3]-11\mathbb{E}[X^2]+6\mathbb{E}[X]=\lambda^4+6\lambda^3+7\lambda^2+\lambda$.
+
+
+\question %No.5
+The sample space is the set $\Omega=\{1,2,\cdots,n\}^k$.  $\mid \Omega \mid = n^k$.\\
+Let $A=$\{There exist two people picking the same number\}.\\
+$k=\lceil n^\beta \rceil$, when $\beta \ge 1, \mathbb{P}(A)=1$. When $\beta \le 0, \mathbb{P}(A)=0$.\\
+When $0<\beta<1$, The number of ways to uniquely select $k$ numbers is $n(n-1)\cdots(n-k+1)$. 
+In this case, $\mathbb{P}(A)=1-\frac{n(n-1)\cdots(n-k+1)}{n^k}$.\\
+$\lim_{n \to \infty}\mathbb{P}(A)=1-\lim_{n \to \infty}\frac{n}{n}\frac{n-1}{n}\cdots\frac{n-k-1}{n}
+=1-\lim_{n \to \infty}(1-\frac{1}{n})(1-\frac{2}{n})\cdots(1-\frac{k-1}{n})
+=1-\lim_{n \to \infty}\prod_{i=0}^{k-1}e^{-\frac{i}{n}}\\
+=1-\lim_{n \to \infty}e^{-\frac{k^2}{2n}}e^{\frac{k}{2n}}=1-\lim_{n \to \infty}e^{-\frac{k^2}{2n}}$.\\
+If $\beta_{0}>\frac{1}{2}, \lim_{n \to \infty}e^{-\frac{k^2}{2n}}=0$. In this case, $\mathbb{P}(A)=1$ when $n \to \infty$.\\ 
+If $\beta_{0}<\frac{1}{2}, \lim_{n \to \infty}e^{-\frac{k^2}{2n}}=1$. In this case, $\mathbb{P}(A)=0$ when $n \to \infty$.
+
+\question %No.6
+(i) Let $f(m)=\mathbb{P}(\exists n, \textrm{s.t.} S_{n}=m)$, for convience, we set $f(0)=1$.\\
+$f(m)=\sum_{i=1}^{\min\{m,6\}}\frac{1}{6}f(m-i)$. 
+The python program is as following:
+    \begin{verbatim}
+        def f(n):
+            seq = [1]
+            for i in range(n): seq.append(sum(seq[-6:])/6)
+            return seq[-1]
+    \end{verbatim}
+We can get $f(2020)=0.28571428571428575$. \\       
+\\
+(ii) When $m>6$, the probability of the complement of the event $\{\exists n, \textrm{s.t.} S_{n}=m\}$ 
+can be decomposed into 6 cases (In the last roll we arrive at $f(m-i)$, where $i \in \{1,2,3,4,5,6\}$).\\
+Therefore, $1-f(m)=\sum_{i=1}^{6}\frac{6-i}{6}f(m-i)$. Suppose $p_{0}=\{f(m)\}_{m=1}^{\infty}$,
+we get 
+\begin{equation}
+    1-p_{0}=\sum_{i=1}^{6}\frac{6-i}{6}p_{0}
+\end{equation}
+
+Solving Eq.(7), we get $p_{0}=\frac{2}{7}$.\\
+\\
+(iii) (This is one student's solution) \\
+Let $a_{m}=\max _{m-5 \leqslant n \leqslant m} f(n)$ and $b_{m}=\min _{m-5 \leqslant n \leqslant m} f(n)$,
+we will prove that $a_{m}$ is non-increasing and $b_{m}$ is non-decreasing.\\
+$f(m+1)=\frac{1}{6} \sum_{n=m-5}^{m} f(n) \leqslant \max _{m-5 \leqslant n \leqslant m} f(n)=a_{m}$,\\
+$a_{m+1}=\max _{m-4 \leqslant n \leqslant m+1} f(n) \leqslant \max \{f(m+1), a_{m}\}=a_{m}$.\\
+Similarly, we can prove that $b_{m+1} \ge b_{m}$.\\
+Since $0 \leqslant b_{m} \leqslant b_{m+1} \leqslant a_{m+1} \leqslant a_{m} \leqslant 1$, both $\{a_{m}\}$ and $\{b_{m}\}$ converge.\\
+
+Let $\lim_{m \to \infty}a_{m}=a$ and $\lim_{m \to \infty}b_{m}=b$, we will prove that $a=b$.\\
+If $a < b$, then there extists some $m_{0}$ that $a_{m_{0}} < b_{m_{0}}$, contradict.\\
+If $a > b$, let $\epsilon < \frac{1}{12}(a-b)$, $\exists M\in\mathbb{N}, \forall m \geq M, a-\epsilon<a_{m}<a+\epsilon$
+and $b-\epsilon<b_{m}<b+\epsilon$.\\
+Thus $\forall m \geq M+6, f(m) \leq \frac{5}{6}(a+\epsilon)+\frac{1}{6}(b+\epsilon)\leq a-\epsilon$, 
+which means $a_{m} \leq a-\epsilon$, contradict.\\
+So $a=b$ and $f(m)$ converges.$\Box$ 
+\end{document}
