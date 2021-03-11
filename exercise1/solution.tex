@@ -1,0 +1,82 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[thehwcnt=1]{iidef}
+\DeclareMathOperator{\bP}{\mathbb{P}}
+\DeclareMathOperator{\Bern}{Bern}
+\DeclareMathOperator{\mF}{\mathcal{F}}
+\usepackage[utf8]{inputenc}
+\thecourseinstitute{Tsinghua-Berkeley Shenzhen Institute}
+%\title{ldp-1}
+%\author{zhaof17 }
+%\date{March 2021}
+\thecoursename{Probability}
+\theterm{Spring 2021}
+\begin{document}
+
+\courseheader
+\name{Feng Zhao}
+
+\begin{enumerate}
+\item This does not guarantee that
+$X,Y,Z$ are mutually independent.
+Counter example:
+$$
+P(x,y,z)= \frac{1}{8} (1+\epsilon\cdot (-1)^{x+y+z}), \textrm{ where } x,y,z \in {0,1}
+$$
+$\epsilon$ is chosen smaller enough to make
+$P(x,y,z) > 0$ for every triple $(x,y,z)$.
+The construction is a valid discrete probability measure.
+We can verify that $X,Y,Z \sim \Bern(\frac{1}{2})$ and the pairwise independence holds. However, the
+collective (mutual) independence does not hold, since $P(x=1,y=1,z=1)\neq P(x=1)\cdot
+P(y=1)\cdot P(z=1)$.
+\item $P(A_1)=\frac{1}{128}$, $P(A_2)=\frac{1}{64}$,
+$P(A_3)=\frac{\binom{8}{4}}{256}=\frac{35}{128}$, $P(A_4)=\frac{1}{32}$, $P(A_1| A_3)
+=\frac{P(A_1)}{P(A_3)}=\frac{1}{35}$,
+$P(A_2|A_3)=\frac{P(A_2)}{P(A_3)}=\frac{2}{35}$.
+\item
+\begin{enumerate}
+    \item Let $B_i$ represents the event that exactly $i$ corners
+    of the cube are colored red.
+    Then $P(A|B_5) = \frac{24}{56}=\frac{3}{7}$.
+    \item Let $B=\bigcup_{i=5}^8 B_i$, then $P(A|B)=\frac{\sum_{i=5}^8 P(A\cap B_i)}{\sum_{i=5}^8 P(B_i)} =\frac{24p^5(1-p)^3 + 24 p^6(1-p)^2  + 8 p^7(1-p) + p^8}{56p^5(1-p)^3 + 28 p^6(1-p)^2 + 8 p^7(1-p) + p^8}$
+\item Using Bayes rules, we can write $P(A)=P(A|B)P(B)+
++P(A|B_4)P(B_4)=6p^4(1-p)^4+24p^5(1-p)^3 + 24 p^6(1-p)^2  + 8 p^7(1-p) + p^8$
+\end{enumerate}
+\item
+\begin{enumerate}
+    \item $\sigma(C)=16$. Notice that 
+    $\Omega=\{HH,HT,TT,TH\}$ which is equivalent with
+    $\{1,2,3,4\}$. Further
+    $A=\{HH,HT\}$, $B=\{HH,TH\}$, $\mathcal{C}=\{A,B\}$.
+    Then $|\mathcal{C}| = |\sigma(\{ \{1\},\{2\},\{3\},\{4\}\})|
+    =2^4=16$.
+    \item Similarly, $|\mathcal{C}| = 32$.
+\end{enumerate}
+\item $\bP(\cap_{i=1}^{\infty} \cup_{n=i}^{\infty} A_n ) 
+=1$. Proof: From the condition
+$\bP(\cup_{n=1}^{\infty} A_n) = 1$ follows 
+$\bP(\cap_{n=1}^{\infty} A^c_n) = 0$.
+Since $\{A_n\}_{n=1}^{\infty}$
+is an independent sequence,
+we have $\prod_{n=1}^{\infty} P(A_n^c)=0$.
+Since $\bP(A_n)<1$, $\bP(A_n^c)>0$. Then for any $i$,
+$\prod_{n=i}^{\infty} P(A_n^c)=0 \Rightarrow \bP(\cap_{n=i}^{\infty} A_n^c) = 0$.
+The probability
+$\bP(\cup_{i=1}^{\infty}\cap_{n=i}^{\infty}A_n^c) 
+\leq \sum_{i=1}^{\infty} \bP(\cap_{n=i}^{\infty}A_n^c)
+= 0$. Taking the complement we get $\bP(\cap_{i=1}^{\infty} \cup_{n=i}^{\infty} A_n ) 
+=1$ at last.
+\item
+\begin{enumerate}
+    \item Since $\{w | X_1(w) + X_2(w) < c\}=\bigcup_{r\in Q}
+    \{w|X_1(w) > r\} \cap \{w|X_2(w) < c-r\}$ is F-measurable,
+    $X_1+X_2$ is a random variable.
+    \item $\{w|\lim_{n\to \infty} X_n(w) \leq c\} = \bigcap_{n=1}^{\infty} \bigcup_{i=1}^{\infty} \bigcap_{j=i}^{\infty} \{w|X_n(w) < c + \frac{1}{n}\}$
+    is F-measurable $\Rightarrow$ $\lim_{n\to\infty} X_n$
+    is a random variable.
+\end{enumerate}
+
+\end{enumerate}
+
+\end{document}
