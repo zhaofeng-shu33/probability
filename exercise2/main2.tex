@@ -1,0 +1,131 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[thehwcnt=2]{iidef}
+\DeclareMathOperator{\bP}{\mathbb{P}}
+\DeclareMathOperator{\Bern}{Bern}
+\DeclareMathOperator{\mF}{\mathcal{F}}
+\usepackage[utf8]{inputenc}
+\thecourseinstitute{Tsinghua-Berkeley Shenzhen Institute}
+%\title{ldp-1}
+%\author{zhaof17 }
+%\date{March 2021}
+\thecoursename{Probability}
+\theterm{Spring 2021}
+\setlist[enumerate,2]{label=(\roman*)}
+\begin{document}
+
+\courseheader
+\name{Feng Zhao}
+
+\begin{enumerate}
+\item Let $X_1,X_2,X_3$ represent the
+random variables of throwing dices for each term. They are independent. The event that
+we obtain 3 numbers in strictly increasing
+order is equivalent with $X_1<X_2 \wedge X_2 <X_3$.
+\begin{align*}
+    P(X_1<X_2 \wedge X_2 <X_3)
+    &=\sum_{i=2}^5 P(X_1 < i \wedge X_3 > i)P(X_2=i)\\
+    &=\sum_{i=2}^5 P(X_1 < i)P( X_3 > i)P(X_2=i) \\
+    &=\sum_{i=2}^5  \frac{1}{6}\frac{i-1}{6}\frac{6-i}{6}\\
+    &=\frac{5}{54}
+\end{align*}
+Similarly, $P(X_1>X_2 \wedge X_2 > X_3)=\frac{5}{9}$.
+\item 
+\begin{enumerate}
+    \item Using the log sum inequality we have
+$\sum_{i=1}^n p_i\log \frac{p_i}{C r^u} \geq 0$,
+which is equivalent to
+$\sum_{i=1}^n p_i\log p_i \geq \log C + \mu \log r = \sum_{i=1}^n Cr^{x_i} \log (Cr^{x_i})$, since $C, r$ satisfy the two
+constraints $\sum_{i=1}^n Cr^{x_i}=1$
+and$\sum_{i=1}^n Cr^{x_i}x_i=\mu$.
+\item $p_i = Cr^i$, which has the same
+PMF as the geometric distribution.
+Let $p$ be the parameter of the
+geometric distribution. Then
+we have $\mu=\frac{1}{p}$,
+$C=\frac{p}{1-p}=\frac{1}{\mu-1}$
+and $r=1-p=1-\frac{1}{\mu}$.
+\end{enumerate}
+\item
+\begin{enumerate}
+    \item Let the partial sum $T_{n}=\sum_{i=1}^n \frac{(-1)^{n+1}}{n}$.
+    Also we define
+    $S_{n}=\sum_{i=1}^n \frac{1}{n}$.
+    Then we can show that
+    $T_{2n}=S_{2n} - S_n$. Using the asymptotic form for harmonic series,
+    we have $S_n \sim \log n + \gamma$ where
+    $\gamma$ is the Euler constant.
+    Therefore, $T_{2n} \sim \log (2n) - \log n \to = 2$. That is
+    $\sum_{i=1}^{\infty} \frac{(-1)^{n+1}}{n}=\log 2$.
+    \item Using similar method as above, we can
+    show that
+    $$
+    1-\frac{1}{2}
+    -\frac{1}{4}
+    + \frac{1}{3}
+    -\frac{1}{6}
+    -\frac{1}{8} +\dots
+    = \frac{1}{2}\log 2
+    $$
+\item $\sum_{i=1}^{\infty} \frac{1}{n}=\infty$.
+\end{enumerate}
+\item
+\begin{enumerate}
+    \item Using the equality
+    $\mathbb{E}[(X-1)^k | X>1] = \mathbb{E}[X^k]$ 
+    for geometric distribution can
+    we get
+    $\mathbb{E}[X^3] = \frac{p^2+6-6p}{p^3}$
+    and $\mathbb{E}[X^4] = \frac{-p^3+14p^2-36p+24}{p^4}$.
+    \item Using the equality
+    $\mathbb{E}[X(X-1)\dots(X-k)]
+    =\lambda^{k+1}$
+    for Poisson distribution.
+    We can get
+    $\mathbb{E}[X^3]=\lambda^3+3\lambda^2+\lambda$
+    and
+    $\mathbb{E}[X^4]=\lambda^4+6\lambda^3+
+    7\lambda^2+\lambda$
+\end{enumerate}
+\item $\beta_0=\frac{1}{2}$.
+Let $A$ represents the event that no collision
+happens. Then $P(A) = \frac{(n-1) \dots (n-k+1)}{n^{k-1}}$. We analyze the asymptotic behaviour of $P(A)$ by Stirling's formula as follows:
+$P(A) = \frac{n!}{n^k (n-k)!} \sim \frac{(n/e)^n}{n^k ((n-k)/e)^{n-k}}$. We can write
+$\frac{(n/e)^n}{n^k ((n-k)/e)^{n-k}}=\frac{1}{\exp(k+(n-k)\log(1-\frac{k}{n}))}=\frac{1}{\exp((n+k)k^2/(2n^2) + O(k^3/n^2)}$.
+If $\beta < \frac{1}{2}$, $k^2 < n$ and $P(A) \to 1$.
+Otherwise $P(A) \to 0$.
+\item 
+\begin{enumerate}
+    \item The recursive formula is
+    \begin{equation}\label{eq:fm}
+    f(m) = \frac{1}{6}\sum_{i=1}^6 f(m-i)
+    \end{equation}
+    so that we get
+    $f(2020)\approx 0.286$ by computer program.
+    \item The complement of the event $\exists n, \textrm{s.t.} S_n=m$
+    is $\exists n,\textrm{s.t.} S_n<m \wedge S_{n+1} > m$, which can
+    be further decomposed into 5 events: $S_n = m-j+1 \wedge X_{n+1} \geq j$ for $j=2,3,4,5,6$. Therefore, we have the following equation:
+    $1-f(m)=\sum_{j=1}^5 \frac{6-i}{6}f(m-j)$. Taking the limit $m\to \infty$
+    on both sides we have $\lim_{m\to\infty}f(m)=\frac{2}{7}$.
+    \item
+    Let $f(0)=1$. Then $f(6)$ satisfies the recursive formula
+    \eqref{eq:fm}.
+        Since $0 \leq f(m)\leq 1$, then $\max_{m} |f(m-j)-f(m)| \leq 1$
+        for $m\geq 0$ and $j=1,2,\dots, 5$. Using the recursive
+        formula,
+    first we have
+    $|f(m)-f(m-j)|=\frac{1}{6}|\sum_{i=1}^6 [f(m-i)-f(m-j)]| \leq \frac{5}{6}$ for $m\geq 6$ and $j=1,2,\dots, 5$.
+    Then we have $|f(m)-f(m-j)|=\frac{1}{6}|\sum_{i=1}^6 [f(m-i)-f(m-j)]| \leq (\frac{5}{6})^2$ for $m\geq 12$ and $j=1,2,\dots, 5$.
+    Recursively we have
+    $[f(m)-f(m-j)]| \leq (\frac{5}{6})^{\lfloor m/6 \rfloor} $ for $j=1,2,\dots, 5$.
+    Then
+    $|f(m+n)-f(m)|\leq 
+    \sum_{i=1}^n |f(m+i)-f(m+i-1)| \leq \sum_{i=1}^n (\frac{5}{6})^{\lfloor (m+i)/6 \rfloor} \leq
+    6 \frac{1}{1-(5/6)} (\frac{5}{6})^{\lfloor (m+1)/6 \rfloor}=36 (\frac{5}{6})^{\lfloor (m+1)/6 \rfloor}$.
+    By Cauchy's convergence test, $f(m)$ converges.
+\end{enumerate}
+\end{enumerate}
+
+\end{document}
+
