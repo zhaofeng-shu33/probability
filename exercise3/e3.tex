@@ -1,0 +1,137 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[thehwcnt=3]{iidef}
+\DeclareMathOperator{\bP}{\mathbb{P}}
+\DeclareMathOperator{\Bern}{Bern}
+\DeclareMathOperator{\mF}{\mathcal{F}}
+\usepackage[utf8]{inputenc}
+\thecourseinstitute{Tsinghua-Berkeley Shenzhen Institute}
+%\title{ldp-1}
+%\author{zhaof17 }
+%\date{March 2021}
+\thecoursename{Probability}
+\theterm{Spring 2021}
+%\setlist[enumerate,2]{label=(\roman*)}
+\begin{document}
+
+\courseheader
+\name{Feng Zhao}
+
+\begin{enumerate}
+\item Not necessary. Let $(\Omega, \mathcal{F}, P)=([0,1],
+\mathcal{B}, \lambda)$ where $\mathcal{B}$ is the Borel $\sigma$-algebra
+and $\lambda$ is the Lebesgue measure. We can verify
+$\lambda$
+is also a probability measure. Define
+$X_n = \sum_{i=n}^{\infty} -i \mathbf{1}_{(\frac{1}{i+1}, \frac{1}{i}]}$.
+for $\omega \in (0,1]$ and $X_n(0)=0$. Then we can verify that
+$X_n$ is non-decreasing random variables and $X_n \to 0$ for any
+$\omega \in \Omega$. However, $E[X_n] = \sum_{i=n}^{\infty}(-i)(\frac{1}{i}-\frac{1}{i+1})=-\sum_{i=n}^{\infty}
+\frac{1}{i+1}=-\infty$. Therefore, $\lim_{n\to \infty} E[X_n] \to E[X]$
+does not hold.
+
+\item 
+\begin{enumerate}
+    \item $c=\frac{1}{2\pi}$.
+\item When $k$ is odd, $E[X^k]=0$. When $k=2m$ for $m=2,4,\dots$,
+we have
+\begin{align*}
+    E[X^k] &= c\int_{-2}^{2} x^{2m}\sqrt{4-x^2}dx \\
+    &= 2^{2m+2} c \int_{-\pi/2}^{\pi/2} \cos^2 \theta \sin^{2m} \theta d\theta\\
+    &=\frac{2^{2m+1}}{\pi}B(\frac{2m+1}{2},\frac{3}{2})
+\end{align*}
+where $B$ is the Beta function.
+\end{enumerate}
+\item We make induction on $n$. For $n=1$, $P(X\geq k) \geq P(Y\geq k)$
+obviously holds. If the conclusion holds for $n=m$,
+then for $n=m+1$, 
+\begin{align*}
+P(\sum_{i=1}^{m+1} X_{i} \geq k) 
+&= P(\sum_{i=1}^{m} X_{i} \geq k, X_{m+1}=0) + P(\sum_{i=1}^{m} X_{i} \geq k-1, X_{m+1}=1)\\
+&= P(\sum_{i=1}^{m} X_{i} \geq k) + P(\sum_{i=1}^{m} X_{i} = k-1)P(X_{m+1}=1)
+\end{align*}
+Similarly, 
+$$
+P(\sum_{i=1}^{m+1} Y_{i} \geq k) = P(\sum_{i=1}^{m} Y_{i} \geq k) + P(\sum_{i=1}^{m} Y_{i} = k-1)P(Y_{m+1}=1)
+$$
+If $P(\sum_{i=1}^{m} X_{i} = k-1) \geq P(\sum_{i=1}^{m} Y_{i} = k-1)$, then
+using deduction for $n=m$ we have 
+$P(\sum_{i=1}^{m+1} X_{i} \geq k)  \geq P(\sum_{i=1}^{m+1} Y_{i} \geq k) $.
+Otherwise,
+\begin{align*}
+    P(\sum_{i=1}^{m+1} X_{i} \geq k) 
+    &- P(\sum_{i=1}^{m+1} Y_{i} \geq k)
+    =P(\sum_{i=1}^{m} X_{i} \geq k)- P(\sum_{i=1}^{m} Y_{i} \geq k)\\
+    &+P(X_{m+1}=1)(P(\sum_{i=1}^{m} X_{i} = k-1) - P(\sum_{i=1}^{m} Y_{i} = k-1))\\
+    &\geq P(\sum_{i=1}^{m} X_{i} \geq k)- P(\sum_{i=1}^{m} Y_{i} \geq k)
+    +(P(\sum_{i=1}^{m} X_{i} = k-1) - P(\sum_{i=1}^{m} Y_{i} = k-1)) \\
+    &=P(\sum_{i=1}^{m} X_{i} \geq k-1)- P(\sum_{i=1}^{m} Y_{i} \geq k-1) \underset{(a)}{\geq} 0
+\end{align*}
+where $(a)$ also follows from the deduction of $n=m$.
+\item
+\begin{enumerate}
+    \item Since $U$ and $V$ are independent,
+    so are $V^2$ and $\frac{1}{1+U}$.
+    $E[\frac{V^2}{1+U}] = E[V^2]E[\frac{1}{1+U}] = 2\log 2
+    $.
+    \item Using double integral, $P(U\leq V) = \int_0^1 du
+    \int_u^{+\infty} e^{-v} dv = 1-e^{-1}$.
+    \item The joint pdf is zero outside the square $[0,1] \times [0,+\infty)$.
+    Using the changing of variable for multivariate random variables we
+    can get the joint pdf of $Y,Z$ is $p(y,z)=\frac{\exp(-z/\sqrt{y})}{2y}$. Taking the limit
+    $y\to 0$ we have $\lim_{y\to 0}p(y,z)=0$. Therefore,
+    the pdf also equals zero for $y=0$.
+\end{enumerate}
+\item Using triple integral we can get $P(X_1 > X_2 + X_3) = \frac{1}{4}$.
+\item The joint probability distribution is
+\begin{equation}\label{eq:y1y2}
+p(y_1, y_2) = c |y_1 - y_2| \exp(-\frac{y_1^2+ y_2^2}{4})
+\end{equation}
+The eigenvalue decomposition of $\begin{pmatrix}
+X_1 & X_3 \\
+X_3 & X_2
+\end{pmatrix}
+$ is given by:
+$$
+\begin{pmatrix}
+X_1 & X_3 \\
+X_3 & X_2
+\end{pmatrix} =
+\begin{pmatrix}
+\cos \theta & -\sin\theta \\
+\sin\theta & \cos\theta
+\end{pmatrix}
+\begin{pmatrix}
+Y_1 & 0 \\
+0 & Y_2
+\end{pmatrix}
+\begin{pmatrix}
+\cos \theta & \sin\theta \\
+-\sin\theta & \cos\theta
+\end{pmatrix}
+$$
+After expansion, we have
+\begin{align*}
+    X_1 & = Y_1 \cos^2\theta + Y_2\sin^2\theta  \\
+    X_2 & = Y_1 \sin^2\theta + Y_2\cos^2\theta  \\
+    X_3 & = (Y_1 - Y_2)\sin \theta \cos \theta 
+\end{align*}
+The absolute value of the determinant of the transformation matrix is given by
+$$
+|\frac{\partial (x_1, x_2, x_3)}{\partial (y_1, y_2, \theta}| = f(\theta)|y_1 - y_2|
+$$
+Therefore, the distribution of $(Y_1, Y_2, \theta)$
+is given by 
+\begin{align*}
+p(y_1, y_2, \theta) =& c'f(\theta)|y_1-y_2|\exp(-\frac{( y_1\cos^2\theta +y_2 \sin^2\theta )^2+( y_1\sin^2\theta + y_2\cos^2\theta )^2}{4})\\
+\cdot & \exp(-\frac{\sin^2\theta\cos^2\theta (y_1-y_2)^2}{2}) \\
+=&c'f(\theta)|y_1-y_2|\exp(-\frac{y_1^2+y_2^2}{4})
+\end{align*}
+where $c'$ is a constant.
+After integration of $\theta$ over $[0, 2\pi]$ we can get the marginal distribution
+for $(y_1, y_2)$ in \eqref{eq:y1y2}.
+\end{enumerate}
+
+\end{document}
+
