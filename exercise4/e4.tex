@@ -1,0 +1,146 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[thehwcnt=4]{iidef}
+\DeclareMathOperator{\bP}{\mathbb{P}}
+\DeclareMathOperator{\Bern}{Bern}
+%\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\mF}{\mathcal{F}}
+\usepackage[utf8]{inputenc}
+\thecourseinstitute{Tsinghua-Berkeley Shenzhen Institute}
+%\title{ldp-1}
+%\author{zhaof17 }
+%\date{March 2021}
+\thecoursename{Probability}
+\theterm{Spring 2021}
+%\setlist[enumerate,2]{label=(\roman*)}
+\begin{document}
+
+\courseheader
+\name{Feng Zhao}
+
+\begin{enumerate}
+\item 
+\begin{enumerate}
+    \item If $s=0$, $M_X(s)=1$. Below we show that $M_X(s)=+\infty$.
+    For any $s>0$, we can find $M$ satisfying $M>t$ and $e^{sx/2}>x^2$ for $x>M$.
+    Then $M_X(s) = \int_{-\infty}^{+\infty} \frac{1}{\pi} \frac{t}{t^2+x^2} e^{sx} dx
+    \ge \frac{t}{2\pi} \int_{M}^{\infty} \frac{e^{sx}}{x^2}dx
+    \ge \frac{t}{2\pi} \int_{M}^{\infty} \frac{e^{sx/2}}{x^2}dx = +\infty
+    $. Similar proof can be made for $s<0$.
+    \item My answer is yes. The symmetric log-normal distribution satisfies the two conditions.
+    Let $X=e^{-Z}+e^{Z}$ where $Z$ is standard normal distribution. Then $E[X^n] = e^{-n^2/2}+e^{n^2/2}$,
+    which is finite. On the other hand, $M_X(s) = +\infty$ for any $s\neq 0$.
+\end{enumerate}
+\item 
+\begin{enumerate}
+    \item Using the inequality, $\E[X^k] \leq (\frac{k}{se})^k M_X(s)$.
+    Let $s=a>0$. We then have $\E[X^k] < +\infty$.
+    \item From the inequality $e^{tX-k} \geq \frac{t^k X^k}{k!}$,
+    Let $t=a-s>0$, we then have
+    $e^{ax-k} \geq e^{sx} x^k \frac{(a-s)^k}{k^k}$. Taking the expectation on
+    both sides, we have
+    $\E[X^k e^{sX}] \leq (\frac{k}{(a-s)e})^k M_X(a) < \infty $.
+    \item Let $ t = hX \geq 0$, then it is equivalent to show $e^t -1 \leq t e^t$,
+    which is obvious from the inequality $1-t \leq e^{-t}$.
+    \item From (c), $(e^{hX}-1)/h$ is bounded by $Xe^{hX}$, which is an integrable function for sufficiently small $h<a$ from (b). Therefore, we can apply DCT and get the desired result.
+    
+\end{enumerate}
+\item The existence of the limit follows
+from L'Hospital's rule. 
+\begin{align*}
+    \lim_{x \to \infty} x e^{x^2/(2\sigma^2)}
+    P(X\geq x) & = x e^{x^2/(2\sigma^2)}
+    \int_{x}^{\infty} \frac{1}{\sqrt{2\pi}\sigma}
+    \exp^{-u^2/(2\sigma^2)}du \\
+        & = 
+   \lim_{x \to \infty} \frac{ \int_{x}^{\infty} \frac{1}{\sqrt{2\pi}\sigma}
+    \exp^{-u^2/(2\sigma^2)} du}
+    {e^{-x^2/(2\sigma^2)} / x} \\
+    &= \lim_{x \to \infty} \frac{ - \frac{1}{\sqrt{2\pi}\sigma}
+    \exp^{-x^2/(2\sigma^2)}}
+    {(-x^2e^{-x^2/(2\sigma^2)} / \sigma^2 -e^{-x^2/(2\sigma^2)} )/ x^2} \\
+    &= \lim_{x \to \infty} \frac{x^2}{x^2+\sigma^2} \frac{1}{\sqrt{2\pi}\sigma}=\frac{1}{\sqrt{2\pi}\sigma}
+\end{align*}
+\item
+\begin{enumerate}[label=(\roman*)]
+    \item Let the CDF of $X_1$ be $F(x)$,
+    PDF of $X_1$ be $f(x)$.
+    Then
+    \begin{align*}
+        P(\min(X_1, \dots, X_n) = X_1)
+        &= P(X_i \geq X_1, i=2,\dots,n) \\
+        &=\int_{x_i \geq x_1, i=2,\dots,n}
+        f(x_1)f(x_2) \dots f(x_n) dx_1dx_2\dots dx_n \\
+        & = \int_{\mathbb{R}}
+        f(x_1)dx_1 \left[\int_{x_1}^{+\infty} f(x_2)dx_2\right]^{n-1} \\
+        & =  \int_{\mathbb{R}}
+        f(x_1)(1-F(x_1))^{n-1}dx_1  \\
+        & = \int_{0}^1 (1-u)^{n-1}du = \frac{1}{n}
+    \end{align*}
+    \item For Bernoulli random variables, we have
+        \begin{align*}
+        P(\min(X_1, \dots, X_n) = X_1)
+        &= P(X_i \geq X_1, i=2,\dots,n) \\
+        &=P(X_1=1,X_2=1,\dots, X_n=1) + P(X_1=0) \\
+        &=1-p+p^n
+    \end{align*}
+    \item When $X_i$ follows exponential distribution
+    parameterized by $\lambda_i$, we have $F_i(x)=1-\exp(-\lambda_i x)$
+    and $f_i(x) = -\lambda_i \exp(-\lambda_i x)$.
+        \begin{align*}
+        P(\min(X_1, \dots, X_n) = X_1)
+        &= P(X_i \geq X_1, i=2,\dots,n) \\
+        &=\int_{x_i \geq x_1, i=2,\dots,n}
+        f_1(x_1)f_2(x_2) \dots f_n(x_n) dx_1dx_2\dots dx_n \\
+        & = \int_{\mathbb{R}}
+        f_1(x_1)dx_1 [\prod_{i=2}^n \int_{x_1}^{+\infty} f_i(x)dx] \\
+        & =  \int_{\mathbb{R}}
+        f_i(x)\prod_{i=2}^n(1-F_i(x))dx  \\
+        & = \lambda_i\int_{0}^{+\infty} \exp(-x \sum_{i=1}^n \lambda_i)dx = \frac{\lambda_1}{\sum_{i=1}^n \lambda_i}
+    \end{align*}
+\end{enumerate}
+\item We claim that $\beta_0 = \sqrt{2}$.
+Consider $P(X \leq \beta \sqrt{\log n})$, which equals $P(X_1 \leq
+\beta \sqrt{\log n})^n$.
+\begin{align*}
+    P(X_1 \leq
+\beta \sqrt{\log n})^n &= \left( \frac{1}{\sqrt{2\pi}} \int_{-\infty}^
+{\beta \sqrt{\log n}} e^{-x^2/2}dx
+\right)^n \\
+&=\exp(n\log \left(1-\frac{1}{\sqrt{2\pi}} \int_{\beta \sqrt{\log n}}^
+{+\infty} e^{-x^2/2}dx\right))
+\end{align*}
+The integral $\int_{\beta \sqrt{\log n}}^
+{+\infty} e^{-x^2/2}dx$ can be approximated by
+$-\frac{\exp(-x^2/2)}{x}\Big\vert_{\beta \sqrt{\log n}}^{+\infty} -\int_{\beta \sqrt{\log n}}^
+{+\infty} \frac{\exp(-x^2/2)}{x^2}dx$, whose main term is $\frac{n^{-\beta^2/2}}{\beta \sqrt{\log n}}$.
+Therefore, $P(X \leq \beta \sqrt{\log n})
+\sim \exp(-n^{1-\beta^2/2}\frac{1}{\sqrt{2\pi \log n} \beta})$.
+When $\beta\geq \beta_0=\sqrt{2}$, $P(X \leq \beta \sqrt{\log n}) \to 1$
+and $\lim_{n \to \infty}P(X \geq \beta \sqrt{\log n}) = 0$ holds;
+When $\beta< \beta_0=\sqrt{2}$, $P(X \leq \beta \sqrt{\log n}) \to 0$
+and $\lim_{n \to \infty}P(X \geq \beta \sqrt{\log n}) = 1$ holds.
+
+
+\item We will derive a recursive formula for $\Var[X_n]$. First we have $\E[X_n]=\mu^n$.
+Let $W_1$ follow the offspring distribution
+Using the law of total variance, we have
+$\Var[X_n]=\E[\Var[X_n|X_{n-1}]] + \Var[\E[X_n | X_{n-1}]]$.
+The random variable $X_n | X_{n-1}$ is has mean $X_{n-1} \E[W_1]$, variance
+$X_{n-1}\Var[W_1]$. Therefore,
+$\Var[X_n]=\E[X_{n-1}]\Var[W_1] + \Var[X_{n-1}]\E[W_1]^2
+= \sigma^2 \mu^{n-1} + \mu^2 \Var[X_{n-1}]$, with the initial condition
+$\Var[X_0]=1$.
+As a result,
+\begin{equation*}
+    \Var[X_n] =\begin{cases}
+    n\sigma^2 & \mu = 1\\
+    \sigma^2 \mu^{n-1}
+    \frac{\mu^n - 1}{\mu-1} & \mu \neq 1 \\
+    \end{cases}
+\end{equation*} 
+\end{enumerate}
+
+\end{document}
+
