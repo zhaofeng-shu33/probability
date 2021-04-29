@@ -1,0 +1,149 @@
+\documentclass[a4paper, 12pt, answers]{exam}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{bm}
+\usepackage{advdate}
+\usepackage{datetime}
+\usepackage[mathcal]{eucal}
+\usepackage{dsfont}
+\usepackage[numbered,framed]{matlab-prettifier}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\hypersetup{
+  colorlinks   = true, %Colours links instead of ugly boxes
+  urlcolor     = blue, %Colour for external hyperlinks
+  linkcolor    = blue, %Colour of internal links
+  citecolor   = red %Colour of citations
+}
+
+\allowdisplaybreaks
+\newdate{issuedate}{22}{2}{2020}
+\newdate{duedate}{7}{3}{2020}
+
+% \newcommand{\duedate}[1][14]{%
+% \begingroup
+% \AdvanceDate[#1]%
+% \today%
+% \endgroup
+% }%
+\input{./lddef}
+
+\makeatletter
+\@ifclasswith{exam}{answers}{\newcommand{\firstblock}{comments}}{}
+\makeatother
+
+\begin{document}
+
+\pagestyle{headandfoot}
+\runningheadrule
+
+
+\newcounter{psctr}
+\setcounter{psctr}{1} % set to the times of problem
+
+\runningheader{Homework Assignment \thepsctr}
+              {\textsc{Introduction to Probability Theory}}
+              { Page \thepage\ of \numpages}
+\firstpagefooter{}{}{}
+\runningfooter{}{}{}
+
+
+\newcounter{Sequ}
+\newenvironment{Sequation}
+   {\stepcounter{Sequ}%
+     \addtocounter{equation}{-1}%
+     \renewcommand\theequation{S\arabic{Sequ}}\equation}
+   {\endequation}
+%\topskip0pt
+
+% \vspace*{\fill}
+\centering
+
+% \vspace{0.3em}
+\centering
+\renewcommand{\thequestion}{\arabic{psctr}.\arabic{question}}
+\courseheader
+
+\begin{center}
+  \underline{\bf Written Assignment \thepsctr} \\
+\end{center}
+\begin{flushleft}
+  \textbf{Issued:} \displaydate{issuedate} \hfill
+  \textbf{Due:} \displaydate{duedate} 
+\end{flushleft}
+
+\hrule 
+
+\ifdefined\firstblock
+\input{\firstblock}
+\fi
+
+%\pointname{}
+%\vspace{\footskip}
+%\vspace{1em}
+
+% \begin{flushleft}
+%   Consider the problem of classifying $l$ samples $(\bx_i, y_i)$ using SVM, where $\bx_i \in \mathbb{R}^n$, $y_i \in \{-1, 1\}$, $(i = 1, \cdots, l)$.
+% %{\bf Notations:} 
+% \end{flushleft}
+
+
+\begin{questions}
+  
+  
+
+  \question 
+  \begin{parts}
+  	\part Show that the union of countably many countable sets is countable.
+  	\part A real number $x$ is rational if $x = m/n$, where $m$ is an integer and $n$ is a nonzero integer. Show that the set of rational numbers $\mathbb{Q}$ is countable
+  \end{parts}
+\begin{solution}
+	\begin{parts}
+	\part	Denote the sets as $A_i (i \in \mathbb{N}(\textrm{including 0}))$ and the elements of $A_i$ as $a_{ij} (j \in \mathbb{N})$. For the most general case, which means disjoint countably infinite countable infinite sets, we need to find a bijection $f: \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{N}$.\\
+	For instance, $f(i,j)=2^i(2j+1)-1$ or $f(i,j)=\frac{(i+j)(i+j+1)}{2}+j$.
+	\part Let $A_i=\{\frac{0}{i}, \frac{1}{i}, \dots\}$, $B_i=\{-\frac{0}{i}, -\frac{1}{i}, \dots\}$. According to (a), $(\cup_i A_i)\cup (\cup_i B_i) = \mathbb{Q}$ is countable.
+	\end{parts}
+\end{solution}
+ \question
+ Let $\{x_n\}$ and $\{y_n\}$ be real sequences that converge to $x$ and $y$, respectively. Provide a formal proof of the fact that $x_ny_n$ converges to $xy$.
+ \begin{solution}
+ Fix some $\epsilon > 0$. Let $M=\max\{|x_n|\}$. Let $n_1$ be such that $|x_n-x| < \frac{\epsilon}{2y}$, for all $n>n_1$. Let $n_2$ be such that $|y_n-y| < \frac{\epsilon}{2M}$, for all $n>n_2$. Let $n_0 =\max\{n_1, n_2\}$. Then, for all $n>n_0$, we have
+\begin{equation*}
+|x_n y_n-xy| =|x_n(y_n-y)+(x_n-x)y|\le |x_n(y_n-y)|+ |(x_n-x)y| \le \frac{\epsilon}{2M}M+\frac{\epsilon}{2y}y= \epsilon
+\end{equation*}
+which proves the desired result.
+ \end{solution}
+ \question
+ Let $\Omega=\mathbb{N}$ (the positive integers), and let $\mathcal{F}_0$ be the collection of subsets of $\Omega$ that either have finite cardinality or their complement has finite cardinality. For any $A \in \mathcal{F}_0$, let $\Prob(A)=0$ if $A$ is finite, and $\Prob(A)=1$ if $A^c$ is finite.
+ \begin{parts}
+ 	\part Show that $\mathcal{F}_0$ is a field but not a $\sigma$-field.
+ 	\part Show that $\Prob$ is finitely additive on $\mathcal{F}_0$; that is, if $A,B \in \mathcal{F}_0$, and $A,B$ are disjoint, then $\Prob(A \cup B)= \Prob(A)+ \Prob(B)$.
+ 	\part Show that $\Prob$ is not countably additive on $\mathcal{F}_0$; that is, construct a sequence of
+ 	disjoint sets $A_i \in \mathcal{F}_0$ such that $\cup_{i=1}^{\infty}A_i \in \mathcal{F}_0$ and $\Prob(\cup_{i=1}^{\infty}A_i) \neq \sum_{i=1}^{\infty} \Prob(A_i)$.
+ 	\part Construct a decreasing sequence of sets $A_i \in \mathcal{F}_0$ such that $\cap_{i=1}^{\infty}A_i=\varnothing$ for which $\lim\limits_{i \rightarrow \infty} \Prob(A_i) \neq 0$.
+ \end{parts}
+\begin{solution}
+\begin{parts}
+	\part The empty set has zero cardinality, and therefore belongs to $\mathcal{F}_0$. Furthermore, if $A \in \mathcal{F}_0$, then either $A$ or $A^c$ has finite cardinality. It follows that either $A^c$ or $(A^c)^c$ has finite cardinality, so that $A^c \in \mathcal{F}_0$. \\
+	Suppose that $A, B \in \mathcal{F}_0$. If both $A$ and $B$ are finite, then $A \cup B$ is also finite and belongs to $\mathcal{F}_0$. Suppose now that at least one of $A$ or $B$ is infinite. We have $A \cup B =(A^c \cap B^c)^c$. Since $A^c \cap B^c$ is finite, it follows that $A \cup B \in \mathcal{F}_0$. This shows that $\mathcal{F}_0$ is a field.\\
+    To see that $\mathcal{F}_0$ is not a $\sigma$-field, note that $\{2n\} \in \mathcal{F}_0$ for every $n \in \mathbb{N}$, but the set $\cup_{n=0}^{\infty} {2n}$, the set of even natural numbers, is not in $\mathcal{F}_0$.
+    \part Let $A, B \in \mathcal{F}_0$ be disjoint. If both $A$ and $B$ are finite, then $ \Prob(A \cup B)=0=\Prob(A)+\Prob(B)$. Suppose that either $A$ or $B$ (or both) is infinite. Since $A$ and $B$ are disjoint, we have $A \subset B^c$ and $B\subset A^c$. It follows that $A$ and $B$ cannot both be infinite. Therefore, $\Prob(A \cup B)=1=\Prob(A)+\Prob(B)$, and $\Prob$ is finitely additive.
+    \part Note that $\{i\} \in \mathcal{F}_0$ and $\cup_{i \ge 1}\{i\}=\Omega$. However, $\Prob(\{i\})=0$ while $\Prob(\Omega)=1$, hence $\Prob$ is not countably additive.
+    \part Let $A_i =\{i, i+1, \dots\}$. Then $(A_i)_{i\ge1}$ forms a decreasing sequence of sets with $\cap_i A_i =\varnothing$. But $\Prob(A_i)=1$ for all n, hence $\lim\limits_{i \rightarrow \infty} \Prob(A_i)=1$.
+\end{parts}
+\end{solution}
+\end{questions}  
+
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+
+%  LocalWords:  headandfoot covariance
