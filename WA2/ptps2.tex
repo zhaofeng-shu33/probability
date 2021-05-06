@@ -152,7 +152,7 @@
 	\end{parts}
 \end{solution}
 \question
-Suppose that the events $A_n$ satisfy $\Prob(A_n) \rightarrow 0$ and $\sum_{n=1}^{\infty} \Prob(A_n^c \cap A_{n+1}) < \infty$. Show that $\Prob(A_n \ \mathrm{i.o.})=0$. \emph{Note:} An i.o., stands for “$A_n$ occurs infinitely often”, or “infinitely many of the $A_n$ occur”, or just $\limsup_n A_n$. \emph{Hint:} Borel-Cantelli.
+Suppose that the events $A_n$ satisfy $\Prob(A_n) \rightarrow 0$ and $\sum_{n=1}^{\infty} \Prob(A_n^c \cap A_{n+1}) < \infty$. Show that $\Prob(A_n \ \mathrm{i.o.})=0$. \emph{Note:} $A_n$ i.o., stands for “$A_n$ occurs infinitely often”, or “infinitely many of the $A_n$ occur”, or just $\limsup_n A_n$. \emph{Hint:} Borel-Cantelli.
 
 \begin{solution}
 	Define the set
@@ -187,7 +187,7 @@ Suppose that the events $A_n$ satisfy $\Prob(A_n) \rightarrow 0$ and $\sum_{n=1}
 	\begin{equation*}
 	\Prob(A)=\Prob(\cap_l\cup_{n\ge l}A_n)=1
 	\end{equation*}
-	Equivalent, we can use the Borel-Cantelli Lemma.
+	Equivalently, we can use the Borel-Cantelli Lemma.
 \end{solution}
 
 \question Suppose that $A$, $B$, and $C$ are independent events. Use the definition of independence to show that $A$ and $B \cup C$ are independent.
@@ -207,7 +207,15 @@ Suppose that the events $A_n$ satisfy $\Prob(A_n) \rightarrow 0$ and $\sum_{n=1}
 
 \question Consider a probability space $(\Omega, \FF, \Prob)$, and let $A$ be an event (element of $\FF$). Let $\mathcal{G}$ be the set of all events that are independent from $A$. Show that $\mathcal{G}$ need not be a $\sigma$-field.
 \begin{solution}
-	$\mathcal{G}$ need not be a $\sigma$-algebra. For example, let $X, Y$ be i.i.d., with $\Prob(X=1)=\Prob(X=0)=\frac 12$. Let $Z$ be the mod two sum of $X$ and $Y$ , so that if $X=Y$, then $Z=0$, and if $X\ne Y$, then $Z=1$. Then pairwise, these three random variables are independent. Let $A$ be the event $\{Z=1\}$. Now, the events $B_1={X =1}$, $B_2={Y=1}$ are both independent of $A$. However, $B_1 \cap B_2$ is not independent of $A$.
+	$\mathcal{G}$ need not be a $\sigma$-algebra.
+	For example, let $X, Y$ be i.i.d., with $\Prob(X=1)=\Prob(X=0)=\frac 12$. Let $Z$ be the mod two sum of $X$ and $Y$,
+	so that if $X=Y$, then $Z=0$, and if $X\ne Y$, then $Z=1$. Then pairwise, these three random variables are independent. Let $A$ be the event $\{Z=1\}$. Now, the events $B_1={X =1}$, $B_2={Y=1}$ are both independent of $A$. However, $B_1 \cap B_2$ is not independent of $A$.
+
+	Another solution: Consider $\Omega=[0,1], \mathcal{F}
+	=\mathcal{B}$ and $\mathcal{P}$ is the Lebesgue measure.
+	$A=[0,1/2]$, $B_1=[3/8,5/8],B_2=[1/4,1/2]\cup [3/4,1]$.
+	We can verify that $B_1,B_2 \in \mathcal{G}$ but
+	$B_1\cup B_2 \not\in \mathcal{G}$.
 \end{solution}
 \question Let $A$, $B$, $A_1$, $A_2$, $\dots$ be events. Suppose that for each $k$, we have $A_k \subseteq A_{k+1}$, and that $B$ is independent of $A_k$. Let $A = \cup_{k=1}^{\infty}A_k$. Show that $B$ is independent of $A$.
 \begin{solution}
