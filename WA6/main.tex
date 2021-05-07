@@ -1,0 +1,116 @@
+\documentclass[onecolumn, 12pt]{IEEEtran}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsfonts,amsmath}
+\usepackage{amssymb}
+\pagenumbering{gobble}
+\newcommand{\dd}{\mathrm{d}} 
+\title{Probability Theory Exercise 6 Solution}
+
+
+\begin{document}
+
+\maketitle
+\noindent
+1. Suppose that $M_X(s) < \infty$ for some $s > 0$. Show that $M_X(t) < \infty$ for all $t \in [0, s]$.
+Similarly, suppose
+that $M_X(s) < \infty$ for some $s < 0$. Show that $M_X(t) < \infty$ for all $t \in [s, 0]$.
+\noindent
+\vspace*{0.1in}\\
+\noindent {\bf Answer:} It would be easy to find $\forall x \in \mathbb{R}$, $e^{tx}<1+e^{sx}$. Then we can derive
+\begin{equation*}
+\mathbb{E}[e^{tX}]<\mathbb{E}[1]+\mathbb{E}[e^{sX}],
+\end{equation*}
+which means $M_X(t)<1+M_X(s)<\infty$.
+\noindent 
+\vspace*{0.3in}\\
+\noindent
+2. Suppose that
+\begin{equation*}
+\limsup_{x \rightarrow \infty}\frac{\log \mathbb{P}(X > x)}{x}=-\nu < 0.
+\end{equation*}
+Prove that $M_X(s) < \infty$ for all $s \in [0, \nu)$.
+\noindent
+\vspace*{0.1in}\\
+\noindent
+{\bf Answer:}\\According to the assumption, $\forall \delta >0$, $\exists x_0$ s.t. $\forall x>x_0$
+\begin{equation*}
+\frac{\log \mathbb{P}(X > x)}{x}<-\nu+\delta
+\end{equation*}
+Let $\delta < \nu-s$
+\begin{equation*}
+\begin{aligned}
+M_X(s)=\mathbb{E}[e^{sX}]&=\int_{-\infty}^{\infty}e^{sx}f(x)\dd x\\
+&=\int_{-\infty}^{\infty}e^{sx}\dd F(x)\\
+&=\int_{-\infty}^{\infty}e^{sx}\dd (1-\mathbb{P}(X>x))\\
+&=-\int_{-\infty}^{\infty}e^{sx}\dd\mathbb{P}(X>x)\\
+&=\int_{-\infty}^{\infty}\mathbb{P}(X>x)se^{sx}\dd x-\left.e^{sx}\mathbb{P}(X>x)\right|_{-\infty}^{\infty}\\
+&=\int_{-\infty}^{\infty}\mathbb{P}(X>x)se^{sx}\dd x\\
+&=\int_{-\infty}^{x_0}\mathbb{P}(X>x)se^{sx}\dd x+\int_{x_0}^{\infty}\mathbb{P}(X>x)se^{sx}\dd x\\
+&<\int_{-\infty}^{x_0}\mathbb{P}(X>x)se^{sx}\dd x+\int_{x_0}^{\infty}e^{(-\nu+\delta)x}se^{sx}\dd x\\
+&<\infty
+\end{aligned}
+\end{equation*}
+\noindent
+\vspace*{0.3in}
+
+\noindent
+3. Let $X\sim \mathrm{Ca}(t)$ be a Cauchy random variable with parameter $t > 0$. It has PDF
+\begin{equation*}
+f_X(x) =\frac 1\pi\frac{t}{t^2+x^2}, \qquad \forall x \in \mathbb{R}.
+\end{equation*}
+Prove that the moment generating function $M_X(s) = \infty$ for all $s \ne 0$.
+\noindent 
+\vspace*{0.1in}\\
+\noindent 
+{\bf Answer:}\\
+When $s>0$
+\begin{equation*}
+\begin{aligned}
+M_X(s)&=\int_{-\infty}^{\infty}e^{sx}\frac 1\pi\frac{t}{t^2+x^2}\dd x\\
+&>\int_{0}^{\infty}e^{sx}\frac 1\pi\frac{t}{t^2+x^2}\dd x\\
+&>\int_{0}^{\infty}sx\frac 1\pi\frac{t}{t^2+x^2}\dd x\\
+&=\int_{0}^{\infty}\frac{st}{2\pi}\dd\ln(t^2+x^2)\\
+&=\infty
+\end{aligned}
+\end{equation*}
+Similarly when $s<0$, we can do the integral on negative real number and then  it is proved.
+\noindent 
+\vspace*{0.3in}
+
+\noindent
+4. Suppose that $X$ is a nonnegative random variable and that $M_X(s) < \infty$ for all $s \in (-\infty, a]$, where
+$a > 0$ is a positive number.\\
+(a) Show that $\mathbb{E}[X^k]< \infty$, for every positive integer $k$\\
+(b) Show that $\mathbb{E}[X^ke^{sX}]< \infty$, for every positive integer $k$ and every $s < a$\\
+(c) Show that $(e^{hX}-1)/h\le Xe^{hX}$ \\
+(d) Use the Dominated Convergence Theorem to show that
+\begin{equation*}
+\mathbb{E}[X] = \mathbb{E}\left[\lim_{h \downarrow 0}\frac{e^{hX}-1}{h}\right]=\lim_{h \downarrow 0}\frac{\mathbb{E}[e^{hX}]-1}{h}
+\end{equation*}
+\noindent 
+\vspace*{0.1in}\\
+\noindent 
+{\bf Answer:}
+(a)Let $0<s\le a$, $\mathbb{E}[e^{|sX|}]<\mathbb{E}[e^{sX}]+\mathbb{E}[e^{-sX}]<\infty$
+\begin{equation*}
+\mathbb{E}[X^k]\le\mathbb{E}[|X^k|]<\frac{k!}{s^k}\mathbb{E}[e^{|sX|}]<\infty
+\end{equation*}
+(b)Let $0<w<a-s$, $\mathbb{E}[|X^k|]<\frac{k!}{w^k}\mathbb{E}[e^{|wX|}]$
+\begin{equation*}
+\mathbb{E}[X^ke^{sX}]\le\mathbb{E}[|X^k|e^{sX}]<\frac{k!}{s^k}\mathbb{E}[e^{|wX|}e^{sX}]<\frac{k!}{s^k}(\mathbb{E}[e^{(w+s)X}]+\mathbb{E}[e^{(s-w)X}])<\infty
+\end{equation*}
+(c)Let $g(y)=ye^y-e^y+1$, $g^\prime(y)=e^y+ye^y-e^y=ye^y$, which means $g(y)$ get its minimum at $y=0$ and $g(0)=0$. Therefore $g(y)\ge 0$. Take $y=hX$ we can derive the result.\\
+(d)$\frac{e^{hX}-1}{h}=X+\frac 12 hX^2+\cdots$. Then $\lim_{h \downarrow 0}\frac{e^{hX}-1}{h}=X$. Let $k=1$ and $s=h$ in result (b),
+\begin{equation*}
+\mathbb{E}\left[\frac{e^{hX}-1}{h}\right]\le \mathbb{E}\left[Xe^{hX}\right]<\infty
+\end{equation*}
+According to Dominated Convergence Theorem
+\begin{equation*}
+\mathbb{E}\left[\lim_{h \downarrow 0}\frac{e^{hX}-1}{h}\right]=\lim_{h \downarrow 0}\frac{\mathbb{E}[e^{hX}]-1}{h}
+\end{equation*}
+\noindent
+\vspace*{0.3in}
+
+
+\end{document}
