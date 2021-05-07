@@ -1,0 +1,164 @@
+\documentclass[onecolumn, 12pt]{IEEEtran}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsfonts,amsmath}
+\usepackage{amssymb}
+\pagenumbering{gobble}
+\newcommand{\dd}{\mathrm{d}} 
+\title{Probability Theory Exercise 4 Solution}
+
+
+
+\begin{document}
+
+\maketitle
+\noindent
+1. We throw 3 (six-sided) dices one by one. What is the probability that we obtain 3 numbers in strictly increasing order? What about the probability that we obtain 3 numbers in strictly decreasing order?
+
+\vspace*{0.3in}
+\noindent
+{\bf Answer:}\\
+\noindent There are $6^3$ possible outcomes and $\left(\begin{aligned}6\\3\end{aligned}\right)$ strictly increasing sequences. The answer is
+\begin{equation}
+\left(\begin{aligned}6\\3\end{aligned}\right) /6^3=\frac{5}{54}
+\end{equation}
+\noindent
+
+\vspace*{0.3in}
+\noindent
+2. \textbf{(Splitting of a Poisson random variable)} Suppose we flip a biased coin $N$ times, where $N$ is a Poisson random variable with parameter $\lambda$. The probability of heads at each flip is $p$, 
+independent of other flips and also independent of $N$. 
+Let $X$ be the number of heads in $N$ flips, and let $Y$ be the number of tails. 
+Prove that $X \sim \mathrm{Poisson}(\lambda p)$ 
+and $Y \sim \mathrm{Poisson}(\lambda (1-p))$. 
+Moreover, prove that $X$ and $Y$ are independent.
+
+\vspace*{0.3in}
+\noindent
+{\bf Answer:}
+\noindent 
+\begin{equation}
+\begin{aligned}
+\mathbb{P}(X=k)&=\sum_{i=k}^{\infty}\mathbb{P}(N=i)\mathbb{P}(X=k|N=i)\\
+&=\sum_{i=k}^{\infty}\frac{e^{-\lambda}\lambda^{i}}{i!}\left(\begin{aligned} i \\ k\end{aligned}\right)p^{k}(1-p)^{i-k}\\
+&=\frac{e^{-\lambda}(\lambda p)^k}{k!}\sum_{i=k}^{\infty}\frac{(\lambda(1-p))^{i-k}}{(i-k)!}\\
+&=\frac{e^{-\lambda p}(\lambda p)^k}{k!}
+\end{aligned}
+\end{equation}
+Thus we can derive $X \sim \mathrm{Poisson}(\lambda p)$ and similarly $Y \sim \mathrm{Poisson}(\lambda (1-p))$.
+By definition,
+\begin{equation}
+\begin{aligned}
+\mathbb{P}(X=x, Y=y)&=\mathbb{P}(N=x+y)\mathbb{P}(X=x|N=x+y)\\
+&=\frac{e^{-\lambda}\lambda^{x+y}}{(x+y)!}\frac{(x+y)!}{x!y!}p^x(1-p)^y\\
+&=\mathbb{P}(X=x)\mathbb{P}(Y=y)
+\end{aligned}
+\end{equation}
+, we can derive the independency.
+\vspace*{0.3in}
+
+\noindent
+3. (Integral of simple function is well defined) Suppose that $\sum_{i=1}^{k}a_i\mathbf{1}_{A_i}$ and $\sum_{j=1}^{m}b_j\mathbf{1}_{B_j}$ represent the same simple function $g$, i.e., $\sum_{i=1}^{k}a_i\mathbf{1}_{A_i}=\sum_{j=1}^{m}b_j\mathbf{1}_{B_j}$. Prove that these two forms give the same
+integral value, i.e., $\sum_{i=1}^{k}a_i\mu(A_i)=\sum_{j=1}^{m}b_j\mu(B_j)$. (Hint: First prove the special case where all the $A_i$’s are disjoint and all the $B_i$’s are disjoint. Then show that the general case can always be transformed into such special cases.)
+
+\vspace*{0.3in}
+\noindent
+{\bf Answer:}
+\noindent When all the $A_i$’s are disjoint and all the $B_i$’s are disjoint, for the simple function $g$,
+\begin{equation}
+g=\sum_{i=1}^{k}a_i\mathbf{1}_{A_i}=\sum_{i=1}^{k}a_i\mathbf{1}_{\sum_{j=1}^{m}A_i\cap B_j}=\sum_{i=1}^{k}\sum_{j=1}^{m}a_i\mathbf{1}_{A_i\cap B_j}
+\end{equation}
+Similarly,
+\begin{equation}
+g=\sum_{i=1}^{k}\sum_{j=1}^{m}b_j\mathbf{1}_{A_i\cap B_j}
+\end{equation}
+It leads to $a_i=b_j$ for $A_i\cap B_j \ne \varnothing$.
+Then 
+\begin{equation}
+\begin{aligned}
+\int g \dd \mu&=\sum_{i=1}^{k}a_i\mu(A_i)\\
+&=\sum_{i=1}^{k}\sum_{j=1}^{m}a_i\mu(A_i\cap B_j)\\
+&=\sum_{i=1}^{k}\sum_{j=1}^{m}b_j\mu(A_i\cap B_j)\\
+&=\sum_{j=1}^{m}b_j\mu(B_j)
+\end{aligned}
+\end{equation}
+When $A_i$’s and $B_i$’s are joint.
+We need to recombine the set $\{A_1, \dots, A_k\}$ as $\{\tilde{A}_1, \dots, \tilde{A}_{2^k}\}$ with the following:
+\begin{equation}
+\{\tilde{A}\}_j=\{(\cap_{i\in D} A_i)\cap(\cap_{i\in \{1, \dots, k\}/D}A_i^{c})\}_{D\subseteq\{1, \dots, k\}}
+\end{equation}
+Then $\tilde{a}_j=\sum_{i\in D}a_i$, with $\tilde{A}_i$'s are disjoint.
+\begin{equation}
+\sum_{i=1}^{k}a_i\mu(A_i)=\sum_{j=1}^{2^k}\tilde{a}_j\mu(\tilde{A}_j)
+\end{equation}
+Similar we can define a set $\{\tilde{B}_1, \dots, \tilde{B}_{2^m}\}$ with $\tilde{B}_i$'s are disjoint.\\
+Then $\sum_{i=1}^{2^k}\tilde{a}_i\mu(\tilde{A}_i)=\sum_{j=1}^{2^m}\tilde{b}_j\mu(\tilde{B}_j)$
+\begin{equation}
+\sum_{i=1}^{k}a_i\mu(A_i)=\sum_{i=1}^{2^k}\tilde{a}_i\mu(\tilde{A}_i)=\sum_{j=1}^{2^m}\tilde{b}_j\mu(\tilde{B}_j)=\sum_{j=1}^{m}b_j\mu(B_j)
+\end{equation}
+\vspace*{0.3in}
+
+\noindent
+4. Roll a dice many times. Let $X_i$ be the number obtained in the $i$th roll. Then $X_i$ has uniform distribution over the set $\{1,2,3,4,5,6\}$, and the random variables $X_1,X_2,\dots,X_i,\dots$ are independent.
+Now define $S_n=\sum_{i=1}^n X_i$, i.e., $S_n$ is the sum of the first $n$ rolls.
+
+\noindent
+(1) What is the probability that the number 2020 appears in the sequence $\{S_n\}_{n=1}^\infty$? Or in other words, calculate the probability 
+$
+\mathbb{P}(\exists n \text{~s.t.~} S_n=2020) .
+$
+(Hint: Let $f(m)=\mathbb{P}(\exists n \text{~s.t.~} S_n=m)$. Find a recursive formula for $f(m)$, and then write a computer program to calculate $f(2020)$)
+
+\noindent
+(2) Let $f(m)=\mathbb{P}(\exists n \text{~s.t.~} S_n=m)$. Now assume that the sequence $\{f(m)\}_{m=1}^\infty$ converges. What is the limit $\lim_{m\to\infty} f(m)$?
+(Hint: Try to decompose the probability of the complement of the event $\exists n \text{~s.t.~} S_n=m$)
+
+\noindent
+(3) Prove that the sequence $\{f(m)\}_{m=1}^\infty$ does converge.
+
+
+\vspace*{0.3in}
+\noindent
+{\bf Answer:}
+
+\noindent
+(1) Recursive formula is 
+\begin{equation}  \label{eq:rec}
+f(m)=\frac{1}{6}(f(m-1)+f(m-2)+\dots+f(m-6)).
+\end{equation}
+Initial condition is $f(0)=1,f(-1)=f(-2)=\dots=f(-5)=0$.
+
+
+
+\noindent
+(2) When $m>6$, the event ``$m$ does not appear in the sequence $\{S_n\}_{n=1}^\infty$" is the disjoint union of the following five events:
+(i) ``$m-5$ appears in $\{S_n\}_{n=1}^\infty$ and its next roll is 6"; (ii) ``$m-4$ appears in $\{S_n\}_{n=1}^\infty$ and its next roll is $\ge 5$"; (iii) ``$m-3$ appears in $\{S_n\}_{n=1}^\infty$ and its next roll is $\ge 4$"; (iv) ``$m-2$ appears in $\{S_n\}_{n=1}^\infty$ and its next roll is $\ge 3$"; (v) ``$m-1$ appears in $\{S_n\}_{n=1}^\infty$ and its next roll is $\ge 2$". Therefore,
+$$
+1-f(m)=\frac{1}{6}f(m-5) +  \frac{2}{6}f(m-4)
++ \frac{3}{6}f(m-3) + \frac{4}{6}f(m-2) + \frac{5}{6}f(m-1) .
+$$
+Let $y=\lim_{m\to\infty} f(m)$. Take limit on both sides of the equation above, we obtain
+$$
+1-y=\frac{1+2+3+4+5}{6}y ,
+$$
+so
+$$
+y=\lim_{m\to\infty} f(m)=\frac{2}{7} .
+$$
+
+
+\noindent
+(3) The characteristic equation of \eqref{eq:rec} is 
+$$
+x^6=\frac{1}{6}(x^5+x^4+x^3+x^2+x+1) .
+$$
+Let $\theta_1,\dots,\theta_6$ be the six roots of this equation (some of them can be complex numbers). Then it is well known that 
+$$
+f(m)=\sum_{i=1}^6 a_i \theta_i^m ,
+$$
+where the coefficients $a_1,\dots,a_6$ are determined by the initial condition.
+(If you don't understand this part, search ``Solving homogeneous linear recurrence relations with constant coefficients" on Wikipedia)
+It is clear that $1$ is a root of this equation (without loss of generality assume $\theta_1=1$), and one can show that the magnitude (or absolute value) of the other 5 roots is strictly less than $1$. Therefore $f(m)$ converges to the coefficient $a_1$ as $m\to\infty$. By the answer of question (2), we know that $a_1=2/7$.
+
+
+\end{document}
