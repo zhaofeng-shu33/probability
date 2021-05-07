@@ -1,0 +1,195 @@
+\documentclass[a4paper, 12pt]{exam}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{bm}
+\usepackage{advdate}
+\usepackage{datetime}
+\usepackage[mathcal]{eucal}
+\usepackage{dsfont}
+\usepackage[numbered,framed]{matlab-prettifier}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\hypersetup{
+  colorlinks   = true, %Colours links instead of ugly boxes
+  urlcolor     = blue, %Colour for external hyperlinks
+  linkcolor    = blue, %Colour of internal links
+  citecolor   = red %Colour of citations
+}
+\newcommand{\FF}{\mathcal{F}}
+\newcommand{\rai}{\rightarrow \infty}
+%\DeclareMathOperator*{\limsup}{lim\,sup}  
+%\DeclareMathOperator*{\liminf}{lim\,inf}    
+\allowdisplaybreaks
+\newdate{issuedate}{20}{3}{2020}
+\newdate{duedate}{3}{4}{2020}
+
+% \newcommand{\duedate}[1][14]{%
+% \begingroup
+% \AdvanceDate[#1]%
+% \today%
+% \endgroup
+% }%
+\input{./lddef}
+
+\makeatletter
+\@ifclasswith{exam}{answers}{\newcommand{\firstblock}{comments}}{}
+\makeatother
+
+\begin{document}
+
+\pagestyle{headandfoot}
+\runningheadrule
+
+
+\newcounter{psctr}
+\setcounter{psctr}{3} % set to the times of problem
+
+\runningheader{HW \thepsctr}
+              {\textsc{Introduction to Probability Theory}}
+              { Page \thepage\ of \numpages}
+\firstpagefooter{}{}{}
+\runningfooter{}{}{}
+
+
+\newcounter{Sequ}
+\newenvironment{Sequation}
+   {\stepcounter{Sequ}%
+     \addtocounter{equation}{-1}%
+     \renewcommand\theequation{S\arabic{Sequ}}\equation}
+   {\endequation}
+%\topskip0pt
+
+% \vspace*{\fill}
+\centering
+
+% \vspace{0.3em}
+\centering
+\renewcommand{\thequestion}{\arabic{psctr}.\arabic{question}}
+\courseheader
+
+\begin{center}
+  \underline{\bf Written Assignment \thepsctr} \\
+\end{center}
+\begin{flushleft}
+  \textbf{Issued:} \displaydate{issuedate} \hfill
+  \textbf{Due:} \displaydate{duedate} 
+\end{flushleft}
+
+\hrule 
+
+\ifdefined\firstblock
+\input{\firstblock}
+\fi
+
+%\pointname{}
+%\vspace{\footskip}
+%\vspace{1em}
+
+% \begin{flushleft}
+%   Consider the problem of classifying $l$ samples $(\bx_i, y_i)$ using SVM, where $\bx_i \in \mathbb{R}^n$, $y_i \in \{-1, 1\}$, $(i = 1, \cdots, l)$.
+% %{\bf Notations:} 
+% \end{flushleft}
+
+
+\begin{questions}
+\question A standard card deck (52 cards) is distributed to two persons: 26 cards to each person. All partitions are equally likely. Find the probability that the first person receives all four aces.
+\begin{solution}
+	The total number of choices is $\left(\begin{aligned}52\\26\end{aligned}\right)$. The number of possibilities where the first person receives all four aces is equal to the number of ways to distribute the remaining 48 cards, with 22 going to player 1 and 26 going to player 2, which is $\left(\begin{aligned}48\\22\end{aligned}\right)$. Thus, the answer is
+	\begin{equation*}
+	\frac{\left(\begin{aligned}48\\22\end{aligned}\right)}{\left(\begin{aligned}52\\26\end{aligned}\right)}
+	\end{equation*}
+\end{solution}
+
+\question \textbf{The probabilistic method.} Fifteen per cent of the circumference of a circle is colored blue, the rest is red. Show that, irrespective of the manner in which the colors are distributed, it is possible to inscribe a regular pentagon in the circle with all its vertices red.\\
+\emph{Hint:} Pick an inscribed regular pentagon “at random.” Despite the randomness in the procedure, you need to show that a pentagon with the desired property always exists.\\
+\emph{Note:} The idea in this problem is a simple example of a very powerful (though non-constructive) method for establishing the existence of a certain object. It is used a lot in combinatorics, as well as in coding theory.
+\begin{solution}
+	The probabilistic method generally refers to a method of proving existence. The idea is: if you want to prove that a structure with some particular properties exists, then if you can prove that a randomly selected structure has the given properties with some positive probability (no matter how small), then the existence is guaranteed.\\
+	We apply this technique to this problem. We pick an inscribed regular pentagon at random by choosing uniformly over the circle the position of a vertex. Let event $V_i$ be the event that vertex $i$ is red, $i=1, \dots, 5$. We are interested in showing that $\Prob(V_1 \cap \cdots \cap V_5) > 0$. Note that for any $i$, $\Prob(V_i)=0.85$. Unfortunately, our events are not independent, so we cannot multiply probabilities. Instead, we have:
+	\begin{equation*}
+	\begin{aligned}
+	\Prob(V_1 \cap \cdots \cap V_5) &= 1-\Prob((V_1 \cap \cdots \cap V_5)^c)\\
+	                                                    &= 1-\Prob(V_1^c \cup \cdots \cup V_5^c)\\
+	                                                    &\ge 1- \sum_{i=1}^{5}\Prob(V_i^c)\\
+	                                                    &=1-5\times 0.15 =0.25 >0
+	\end{aligned}
+	\end{equation*}
+\end{solution}
+
+
+\question Suppose that $r$ different books are to be placed on $n$ consecutive library shelves. Any shelf may contain any number of books, from $0$ to $r$. An arrangement consists of a selection of which books are placed on which shelf, and in which order. How many different arrangements are there?
+\begin{solution}
+	Order the books arbitrarily. The arrangement can be determined by placing one book after another. For the first book, we choose one of the $n$ shelves. This shelf is thus divided into two segments, and there are $n+1$ possible choices for the second book. Similarly, there are $n+2$ choices for the third book. It follows that there are $n(n + 1) \cdots (n+r-1)$ possible arrangements.
+\end{solution}
+
+\question Thelma and Louise each pick out independently $k$ distinct integers out of the set $\{1, \dots, n\}$. Every subset of cardinality $k$ is equally likely to be picked. Let $T$ and $L$ be the subsets they pick. Find the probability of the following events:
+\begin{parts}
+	\part $T = L$.
+	\part $T$ and $L$ have exactly $m$ common elements.
+	\part The numbers in $T$ are drawn in increasing order.
+	\part $T$ does not contain two consecutive integers.
+\end{parts}
+\begin{solution}
+	\begin{parts}
+		\part Fix any subset of size $k$ for $T$. There are $\left(\begin{aligned}n\\k\end{aligned}\right)$ ways for Louise to choose $k$ of the first $n$ integers, and only one of these matches the subset $T$. Thus the answer is $1\left/\left(\begin{aligned}n\\k\end{aligned}\right)\right.$.
+		\part Again fix $T$ of size $k$. There are $\left(\begin{aligned}k\\m\end{aligned}\right)$ ways to pick which $m$ numbers of $T$ match the numbers in $L$, and $\left(\begin{aligned}n-k\\k-m\end{aligned}\right)$ ways to pick the remaining non-matching numbers. Thus the probability is
+		\begin{equation*}
+		\left(\begin{aligned}k\\m\end{aligned}\right)\left(\begin{aligned}n-k\\k-m\end{aligned}\right)\left/\left(\begin{aligned}n\\k\end{aligned}\right)\right.
+		\end{equation*}
+		\part Fix any subset of size $k$ for $T$. In this subset, there are $k!$ ways to order the $k$ integers, and exactly one of these orders is increasing. Therefore the answer is $1/k!$.
+		\part We want to count the number of possible subsets $T$ without any consecutive integers. We can think of Thelma as sequentially picking the numbers in increasing order, since the ordering of the subset she chooses does not matter. Equivalently, we can think of Thelma of picking deciding how many numbers $r_i$ in a row she will not pick, before she picks the $i^{\mathrm{th}}$ number. Therefore, we must have:
+		\begin{equation*}
+		r_1+1+(1 + r_2)+1+ \cdots + (1 + r_{k-1}) + 1 + (1 + r_k)+1 \le n
+		\end{equation*}
+		Each $r_i$ must be a nonnegative integer. Therefore we need to count in how many ways we can choose the $r_i$. This is equivalent to asking in how many ways we can choose $k$ ordered nonnegative numbers that add up to something less than or equal to $n-2k+1$. This is the same as the number of ways we can choose $k+1$ ordered nonnegative numbers adding up to exactly $n-2k+1$. Thus the answer is
+		\begin{equation*}
+		\left(\begin{aligned}(n - 2k + 1) + (k + 1) - 1\\(k + 1) - 1\qquad\quad\end{aligned}\right)=\left(\begin{aligned}n - k +1\\k\qquad\end{aligned}\right)
+		\end{equation*}
+		Since there are $\left(\begin{aligned}n\\k\end{aligned}\right)$ total ways to pick a subset of $k$ integers from the first $n$, the probability we want is
+		\begin{equation*}
+		\left(\begin{aligned}n-k+1\\k\qquad\end{aligned}\right)\left/\left(\begin{aligned}n\\k\end{aligned}\right)\right.
+		\end{equation*}
+	\end{parts}
+\end{solution}
+
+\question Let $X: \Omega \rightarrow \mathbb{R}$ be a random variable and let $g$ be a possibly discontinuous but nondecreasing function [that is, if $x\le y$, then $g(x) \le g(y)$]. Show that $g(X)$ is a random variable, using only Definition 1 in the notes for Lecture 5, and first principles, without quoting any other known facts about measurability.
+\begin{solution}
+	Let $c \in \mathbb{R}$. Since $g : \mathbb{R} \rightarrow \mathbb{R}$ is strictly increasing, $\{x|g(x) < c\}$ is either empty or an interval, either $(-\infty,r]$ or $(-\infty,r)$ depending on $c$. Remark that without any smoothness assumption on $g$, e.g. continuity, we need to consider all these possibilities. Let us assume it is the latter. The other case can be handled similarly.
+	$\{\omega|g(X(\omega)) <c\} = \{\omega|X(\omega) <r\}$. Since $X$ is a random variable, the second set is measurable.
+    Hence, $g(X): \Omega \rightarrow \mathbb{R}$ is a random variable.
+\end{solution}
+\question Suppose that $X, Y, X_1, X_2, \dots$ are random variables defined on the same probability space. Show that $X-Y$ and $\limsup_{n \rightarrow \infty} X_n$ are random variables, using only Definition 1 in the notes for Lecture 5, and first principles, without quoting any other known facts about measurability.
+\begin{solution}
+	\begin{itemize}
+		\item To show that $X - Y$ is a random variable, note that
+		\begin{equation*}
+	        \{X - Y >c\} = \cup_{q\in \mathbb{Q}}\left(\{X>c + q\}\cap\{Y <q\}\right)
+		\end{equation*}
+		Indeed, suppose $\omega$ belong to the right hand side of the above equation. This means $X(\omega) >c+q$ and $Y (\omega) <q$, then clearly $X(\omega)+Y (\omega) >c$. Thus $\omega$ belongs to the left-hand side of the above equation.
+		Conversely, suppose $\omega$ belong to the left-hand side of the above equation, i.e. $X(\omega)+Y (\omega) >c$. Define $\epsilon= X(\omega)+Y(\omega)-c$. Let $q$ be any rational number in$ (Y (\omega),Y (\omega)+\epsilon$. Due to the way we defined $\epsilon$, $X(\omega)-q>c$, and therefore $X(\omega) >c + q$. It is also clear that $Y(\omega) <q$. Thus $\omega$ must belong to the right hand side of the above equation.
+		\item To show $\limsup_i X_i$ is a random variable, first observe that $sup_i X_i$ is (a possibly extended-valued) random variable as
+		\begin{equation*}
+		\left\{\sup_i X_i \le c\right\} = \cap_i\left\{X_i \le c\right\}.
+		\end{equation*}
+		Next, since $\sup_{i\ge k} X_i(\omega)$ is a always a nonincreasing sequence in $k$,
+		\begin{equation*}
+	    \left\{\lim_{k}\sup_{i\ge k}X_i \ge c\right\} = \cap_k\left\{\sup_{i\ge l}Xi \ge c\right\},
+		\end{equation*}
+		and this equation together with the measurability of $\sup_{i \ge k} X_i$ implies the measurability of $\limsup_{i}X_i$.
+	\end{itemize}
+\end{solution}
+\end{questions}  
+
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+
+%  LocalWords:  headandfoot covariance
