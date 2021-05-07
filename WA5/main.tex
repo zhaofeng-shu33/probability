@@ -1,0 +1,144 @@
+\documentclass[onecolumn, 12pt]{IEEEtran}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsfonts,amsmath}
+\usepackage{amssymb}
+\pagenumbering{gobble}
+\newcommand{\dd}{\mathrm{d}} 
+\title{Probability Theory Exercise 5 Solution}
+
+
+\begin{document}
+
+\maketitle
+\noindent
+1. Suppose $(U, V)$ has joint pdf
+\begin{equation*}
+f_{U,V}(u,v)=\left\{
+\begin{aligned}
+9u^2v^2 &\qquad\mathrm{if} \ 0 \le u \le 1 \ \mathrm{and}\  0 \le v \le 1\\
+0 \quad&\qquad\mathrm{else}
+\end{aligned}
+\right.
+\end{equation*}
+Let $X=3U$ and $Y = UV$. Find the joint pdf of $X$ and $Y$. Be sure to specify where the joint pdf is zero.\\
+\noindent
+\vspace*{0.1in}\\
+\noindent {\bf Answer:} $X=3U$ and $Y = UV$ implies the inverse transformation $U=\frac{X}{3}$ and $V=\frac{3Y}{X}$, which needs $u=0$. We can directly write down the Jacobian
+\begin{equation*}
+\left|\frac{\partial(U,V)}{\partial(X,Y)}\right|=\left|\begin{aligned}\frac 13 & \ -\frac{3y}{x^2}\\ 0 & \quad\ \frac{3}{x} \end{aligned}\right|=\frac{1}{x}
+\end{equation*}
+$0 \le u \le 1 \ \mathrm{and}\  0 \le v \le 1$ indicates $0 < x \le 3 \ \mathrm{and}\   0\le y\le \frac{x}{3}$.\\
+Then the answer is 
+\begin{equation*}
+f_{X,Y}(x,y)=\left\{
+\begin{aligned}
+\frac{9y^2}{x} &\qquad\mathrm{if} \ 0 < x \le 3 \ \mathrm{and}\   0\le y\le \frac{x}{3}\\
+0 \quad&\qquad\mathrm{else}
+\end{aligned}
+\right.
+\end{equation*}
+\noindent 
+\vspace*{0.3in}\\
+\noindent
+2. Let $U$ and $V$ have the joint pdf:
+\begin{equation*}
+f_{U,V}(u,v)=\left\{
+\begin{aligned}
+c(u-v)^2 &\qquad 0 \le u, v \le 1\\
+0 \qquad&\qquad\mathrm{else}
+\end{aligned}
+\right.
+\end{equation*}
+for some constant $c$.\\
+(a) Find the constant $c$.\\
+(b) Suppose $X = U^2$ and $Y = U^2V^2$. Describe the joint pdf $f_{X,Y} (x, y)$ of $X$ and $Y$. Be sure to indicate
+where the joint pdf is zero.\\
+\noindent
+\vspace*{0.1in}\\
+\noindent
+{\bf Answer:}\\
+\noindent (a)With the normalization,
+\begin{equation*}
+1=\iint_{0 \le u, v \le 1}c(u-v)^2\dd u\dd v
+\end{equation*}
+then we can derive $c=6$.\\
+(b)$X = U^2$ and $Y = U^2V^2$ implies the inverse transformation $U=\sqrt{X}$ and $V=\sqrt{\frac{Y}{X}}$, which needs $X\ne 0$. We can directly write down the Jacobian
+\begin{equation*}
+\left|\frac{\partial(U,V)}{\partial(X,Y)}\right|=\left|\begin{aligned}\frac{1}{2\sqrt{x}} & \ -\frac{y}{2\sqrt{x^3}}\\ 0 & \quad\ \frac{1}{2\sqrt{xy}} \end{aligned}\right|=\frac{1}{4x\sqrt{y}}
+\end{equation*}
+$0 \le u, v \le 1$ indicates $0 < x \le 1 \ \mathrm{and}\   0< y\le x$.\\
+Then the answer is 
+\begin{equation*}
+f_{X,Y}(x,y)=\left\{
+\begin{aligned}
+\frac{3}{2\sqrt{y}} -\frac 3x +\frac{3\sqrt{y}}{2x^2}&\qquad 0 < x \le 1 \ \mathrm{and}\   0< y\le x\\
+0 \quad&\qquad\mathrm{else}
+\end{aligned}
+\right.
+\end{equation*}
+\vspace*{0.3in}
+
+\noindent
+3. Let $U$ and $V$ be independent random variables, such that $U$ is uniformly distributed over the interval
+$[0, 1]$, and $V$ has the exponential probability density function.\\
+(a) Calculate $E[\frac{V^2}{1+U}]$.\\
+(b) Calculate $P\{U\le V\}$.\\
+(c) Find the joint probability density function of $Y$ and $Z$, where $Y = U^2$ and $Z = UV$. Be sure to
+indicate where the joint pdf is zero.\\
+\noindent 
+\vspace*{0.1in}\\
+\noindent 
+{\bf Answer:}\\
+\noindent (a) 
+\begin{equation*}
+E[\frac{V^2}{1+U}]=\iint_{0 \le u \le 1, v > 0}\frac{v^2}{1+u}\cdot 1\cdot \lambda e^{-\lambda v}\dd u\dd v=\frac{2\ln 2}{\lambda^2}
+\end{equation*}
+\noindent(b) 
+\begin{equation*}
+P\{U\le V\}=\iint_{0 \le u \le 1, v \ge u}1\cdot \lambda e^{-\lambda v}\dd u\dd v=\frac{1-e^{-\lambda}}{\lambda}
+\end{equation*}
+\noindent(c) $Y = U^2$ and $Z = UV$ implies the inverse transformation $U=\sqrt{Y}$ and $V=\frac{Z}{\sqrt{Y}}$, which needs $y \ne 0$. We can directly write down the Jacobian
+\begin{equation*}
+\left|\frac{\partial(U,V)}{\partial(Y,Z)}\right|=\left|\begin{aligned}\frac{1}{2\sqrt{y}} & \ -\frac{z}{2\sqrt{y^3}}\\ 0 & \quad\ \frac{1}{\sqrt{y}} \end{aligned}\right|=\frac{1}{2y}
+\end{equation*}
+$0 \le u \le 1$ and $0 \le v $ indicates $0 < y \le 1 $ and $0 \le z$,\\
+Then the answer is 
+\begin{equation*}
+f_{Y,Z}(y,z)=\left\{
+\begin{aligned}
+\frac{\lambda e^{-\lambda\frac{z}{\sqrt{y}}}}{2y}&\qquad 0 < y \le 1 \ \mathrm{and}\   0 \le z\\
+0 \quad&\qquad\mathrm{else}
+\end{aligned}
+\right.
+\end{equation*}
+\vspace*{0.3in}
+
+\noindent
+4. Assume that $X_1, \dots, X_n$ are independent with common PDF $f$. Let $X^{(1)}\le X^{(2)}\le \cdots \le X^{(n)}$ denote the corresponding order statistics. Namely, $X^{(1)} = \min_j X_j$, $X^{(2)}$ is the second smallest one among
+$X_1, \dots, X_n$, and $X^{(n)} = \max_j X_j$.
+Prove that the joint distribution of $X^{(1)},
+\dots, X^{(n)}$ is given by
+\begin{equation*}
+f_{X^{(1)}, \dots, X^{(n)}}(x_1, \dots, x_n) = n!f(x_1)\cdots f(x_n) \qquad\mathrm{for}\  x_1 < x_2 < \cdots < x_n,
+\end{equation*}
+and $f_{X^{(1)}, \dots, X^{(n)}}= 0$ otherwise.\\
+\noindent 
+\vspace*{0.1in}\\
+\noindent 
+{\bf Answer:}
+\noindent Any sequence dissatisfies $x_1 \le x_2 \le \cdots \le x_n$ will not obey the definition of order statistics. The sequence $x_1 < x_2 < \cdots < x_n$ occurs almost surely with $x_1 \le x_2 \le \cdots \le x_n$.\\
+Since $X_i$'s come from i.i.d and all combinations of $x_1, \dots, x_n$ in $X_1, \dots, X_n$ can leads to the same order statistics.\\
+Therefore,
+\begin{equation*}
+\begin{aligned}
+f_{X^{(1)}, \dots, X^{(n)}}(x_1, \dots, x_n) &=f_{X_1, \dots, X_n}(x_1, \dots, x_n)|1|+\cdots+f_{X_1, \dots, X_n}(x_n, \dots, x_1)|1|\\
+&=f(x_1)\cdots f(x_n)+\cdots+f(x_1)\cdots f(x_n)\\
+& = n!f(x_1)\cdots f(x_n)
+\end{aligned}
+\end{equation*} 
+
+\vspace*{0.3in}
+
+
+\end{document}
