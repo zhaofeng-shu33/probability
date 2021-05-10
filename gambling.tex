@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\title{random walk and gambling problem}
+\author{zhaof17 }
+\date{May 2021}
+
+\begin{document}
+\maketitle
+
+We consider 1-dimensional asymmetric random walk problem, in which $P(X_i=1)=p$
+and $P(X_i=-1)=1-p=q$.
+We consider the probability of event $A_j$ in which the particle
+hits $i=0$ before it hits $i=N$ starting from position $i=j$ for $j=0,1,\dots, N$.
+Let $h_j=P(A_j)$.
+Clearly, $h_0=1,h_N=0$.
+For other $0<j<N$ it satisfies the following
+equation: $h_j = qh_{j-1} + ph_{j+1}$.
+It is a linear equation system specified by the following Toeplitz tri-diagonal matrix, which has unique solution.
+\begin{equation}
+    \begin{pmatrix}
+    1 & -p & 0 & \dots & 0\\
+    -q & 1 & -p & \dots & 0\\
+    0 & -q & 1 & -p & \dots \\
+    \vdots & & \vdots& & \vdots \\
+    0 & \dots &  0 & -q & 1 
+    \end{pmatrix}\begin{pmatrix}
+    h_1 \\ h_2 \\ h_3 \\ \vdots \\ h_{N-1}
+    \end{pmatrix} = \begin{pmatrix}
+    q \\ 0 \\ 0 \\ \vdots \\ 0
+    \end{pmatrix} 
+\end{equation}
+The solution is 
+\begin{equation}\label{eq:hi}
+h_i = 
+\begin{cases}
+\frac{(q/p)^i - (q/p)^N}{1-(q/p)^{N}} & p\neq q\\
+\frac{N-i}{N} & p=q=\frac{1}{2}
+\end{cases}    
+\end{equation}
+for $i=0, 2, \dots, N$
+.
+When $p=q=\frac{1}{2}$, we can represent
+$h_2, h_3, \dots$ supposing $h_1$
+is known. Then $h_2=2h_1-1, h_3=3h_1-2,
+\dots, h_i=i h_1 - (i-1)$. Using the last
+equation $\frac{h_{N-2}}{2}
+=h_{N-1}$ we can solve out $h_1=\frac{N-1}{N}$
+and $h_i=\frac{N-i}{N}$
+as required.
+
+When $p\neq q$, we consider the homogeneous linear
+equation, $h_{j+1}=\frac{h_j - q h_{j-1}}{p}$
+for $j=1,2,\dots, N-1$.
+The characteristic function is given by
+$px^2=x-q$, which gives two roots $x=1$
+and $x=\frac{q}{p}$.
+Therefore, the general formula
+is given by $h_j=a+b(q/p)^j$. The initial
+condition is $h_0=1$ and the end condition
+is $h_N = 0$ so that we can solve out $a,b$
+and get the result in \eqref{eq:hi}.
+
+The above model is equivalent to a gambling problem with two players. At the beginning,
+player 1 has $i$ units of fortune while
+player 2 has $N-i$ units such that their total
+fortune is $N$. In each turn, player 1 wins
+with probability $p$ while player 2 wins
+with probability $q$. We are concerned with
+the event that player 1 loses all its fortune first. Such probability is also given by
+\eqref{eq:hi}.
+\end{document}
+
