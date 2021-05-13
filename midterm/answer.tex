@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{amssymb}
+\DeclareMathOperator{\bP}{\mathbb{P}}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\Exp}{Exp}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+%\title{ldp-1}
+\author{Feng Zhao}
+%\date{March 2021}
+\title{Solution to Midterm exam}
+
+\begin{document}
+
+\maketitle
+\begin{enumerate}
+    \item omit
+    \item omit
+    \item $\E[X|X^2=k^2]
+=kP[X=k|X^2=k^2]-kP[X=-k|X^2=k^2]
+=k\frac{P[X=k]-P[X=-k]}{P[X=k]+P[X=-k]}$.
+Therefore, we get $\E[X|X^2=0]=0,\E[X|X^2=1]=\frac{1}{2},
+\E[X|X^2=4]=2,\E[X|X^2=9]=0$.
+Combining the same value, we have $P(Y=0)=\frac{1}{3}$,
+$P(Y=\frac{1}{2})=\frac{4}{9},P(Y=2)=\frac{2}{9}$.
+\item
+\begin{enumerate}
+    \item Yes. 
+    \begin{align*}
+        \E[(S-\E[S])^3] &=
+        \E[\sum_{i=1}^{10} (X_i - \E[X_i])^3]
+        \\
+        &=\sum_{i=1}^{10} \E[(X_i-\E[X_i])^3] + 6
+        \sum_{1\leq i < j \leq 10}\E[(X_i-\E[X_i])^2(X_j-\E[X_j])]
+        \\
+        &+ 6
+        \sum_{1\leq i < j <k \leq 10}\E[(X_i-\E[X_i])(X_j-\E[X_j])(X_k-\E[X_k])]\\
+    \end{align*}
+    Since $X_i \independent X_j$ for $i\neq j$,
+    $\E[(X_i-\E[X_i])^2(X_j-\E[X_j])]=\E[(X_i-\E[X_i])^2]\E[(X_j-\E[X_j])]=0$
+    and $\E[(X_i-\E[X_i])(X_j-\E[X_j])(X_k-\E[X_k])] = 0$.
+    Therefore, $ \E[(S-\E[S])^3] = \sum_{i=1}^{10} \E[(X_i-\E[X_i])^3]$ holds.
+    \item It is not true. Consider $X_i \sim N(0,1)$. Then $\E[X_i]=0$,
+    $\E[X^4_i]=3$. Then the right hand side evaluates to 30 while
+    the left hand side $\E[S^4]=300$.
+\end{enumerate}
+\item $Y_n(\omega)$ is monotonically increasing and bounded by 1.
+Therefore, $Y_n \xrightarrow{a.s.} Y$. Heuristically we guess $Y$ is uniform distribution
+over the interval $[0,1]$.
+\item \begin{enumerate}
+    \item $1 - (1,1)\begin{pmatrix}2&1\\1&2\end{pmatrix}^{-1}\binom{1}{1}= \frac{1}{3}$
+    \item  We first compute the covariance matrix of $(X_1, X_2+X_3) $ as 
+    $\begin{pmatrix}1&2\\2&6\end{pmatrix}$
+    Then $1-\frac{4}{6}=
+    \frac{1}{3}$
+    \item Since $\Cov[X_1,X_2-X_3]=0$, $X_1 \independent X_2-X_3$
+    and $\E[X_1|X_2-X_3]=\E[X_1]$ therefore, the value is $\Var[X_1]=1$.
+\end{enumerate}
+\item 
+\begin{enumerate}[label=(\roman*)]
+    \item Since $\E[X_i^2]=i^2\frac{1}{i\ln i}=\frac{i}{\ln i}$, $\E[Y_n]=\frac{1}{n^2}\sum_{i=2}^n \E[X_i^2]=\frac{1}{n^2}\sum_{i=2}^n \frac{i}{\ln i} \leq \frac{1}{n} \frac{n}{\ln n} \to 0$.
+    Therefore, $\lim_{n\to\infty}\E[Y^2_n] = 0$.
+    \item We first have $\E[Y_n]=0$. By Chebyshev's inequality,
+    $P(|Y_n|>\epsilon)\leq \frac{\E[Y_n^2]}{\epsilon^2} \to 0$ as $n\to\infty$
+    from (i).
+    \item Let $A_n=\{\omega: |X_n(\omega)|=n\}$. Then $A = \limsup_{n\to\infty}A_n $. $P(A_n) = \frac{1}{n\log n}$,
+    and $\sum_{n=1}^{+\infty} P(A_n) = \sum_{n=2}^{\infty}\frac{1}{n\log n}=+\infty$ by approximating it with $\int_{2}^{+\infty} \frac{1}{x\log x}dx$. Also $A_n$ are independent events. By Borel-Cantelli lemma, we have $P(A)=1$.
+    \item For any $\omega$, if $Y_n(\omega)$  coverges,
+    so is $X_n(\omega)$. But $X_n(\omega)$ contains
+    infinitely items whose absolute value is $n$.
+    That is, $X_n(\omega)$ does not converge. As a result,
+    $X_n$ does not converge almost surely.
+\end{enumerate}
+\end{enumerate}
+
+\end{document}
+
