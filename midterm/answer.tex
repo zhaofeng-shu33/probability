@@ -12,7 +12,7 @@
 %\title{ldp-1}
 \author{Feng Zhao}
 %\date{March 2021}
-\title{Solution to Midterm exam}
+\title{Solution to Midterm Exam}
 
 \begin{document}
 
@@ -27,14 +27,14 @@ Therefore, we get $\E[X|X^2=0]=0,\E[X|X^2=1]=\frac{1}{2},
 \E[X|X^2=4]=2,\E[X|X^2=9]=0$.
 Combining the same value, we have $P(Y=0)=\frac{1}{3}$,
 $P(Y=\frac{1}{2})=\frac{4}{9},P(Y=2)=\frac{2}{9}$.
-\item
+\item In this problem, we use $Y_i = X_i - \E[X_i]$ to simplify the notation.
 \begin{enumerate}
     \item Yes. 
     \begin{align*}
         \E[(S-\E[S])^3] &=
         \E[\sum_{i=1}^{10} (X_i - \E[X_i])^3]
         \\
-        &=\sum_{i=1}^{10} \E[(X_i-\E[X_i])^3] + 6
+        &=\sum_{i=1}^{10} \E[(X_i-\E[X_i])^3] +3
         \sum_{1\leq i < j \leq 10}\E[(X_i-\E[X_i])^2(X_j-\E[X_j])]
         \\
         &+ 6
@@ -43,10 +43,38 @@ $P(Y=\frac{1}{2})=\frac{4}{9},P(Y=2)=\frac{2}{9}$.
     Since $X_i \independent X_j$ for $i\neq j$,
     $\E[(X_i-\E[X_i])^2(X_j-\E[X_j])]=\E[(X_i-\E[X_i])^2]\E[(X_j-\E[X_j])]=0$
     and $\E[(X_i-\E[X_i])(X_j-\E[X_j])(X_k-\E[X_k])] = 0$.
-    Therefore, $ \E[(S-\E[S])^3] = \sum_{i=1}^{10} \E[(X_i-\E[X_i])^3]$ holds.
+    Therefore, 
+    $\E[(S-\E[S])^3] = \sum_{i=1}^{10} \E[(X_i-\E[X_i])^3]$ holds.
+    
+    Another proof, based on induction. Let $S_n = \sum_{i=1}^n Y_i$.
+    For $i=2$, we have
+    $\E[S_2^3] = \E[(Y_1 + Y_2)^3]=\E[Y_1^3]+\E[Y_2^3]
+    $.
+    Suppose $\E[S_n^3]=\E[\sum_{i=1}^n Y_i^3]
+    $,
+    then
+    \begin{align*}
+    \E[S_{n+1}^3]
+    & =\E[(S_n + Y_{n+1})^3] \\
+    & \stackrel{(a)}{=} \E[S_n^3] + \E[Y_{n+1}^3] \\
+    & \stackrel{(b)}{=}\E[\sum_{i=1}^{n+1} Y_i^3]
+    \end{align*}
+    In the above equations, (a) comes from the independence of $Y_{n+1}$ and $S_n$ while (b) comes from the induction assumption.
+    Therefore, $\E[S_n^3]=\E[\sum_{i=1}^n Y_i^3]$ holds for any $n$.
+    Take $n=10$, and we have $\E[(S-\E[S])^3] = \sum_{i=1}^{10} \E[(X_i-\E[X_i])^3]$.
     \item It is not true. Consider $X_i \sim N(0,1)$. Then $\E[X_i]=0$,
     $\E[X^4_i]=3$. Then the right hand side evaluates to 30 while
     the left hand side $\E[S^4]=300$.
+    
+    Another counter-example: Choose $X_i=0$ for $i=3,\dots, 10$.
+    And $X_1, X_2$ are random variables with non-zero variance.
+    Then
+    \begin{align*}
+        \E[(S-\E[S])^4] & = \E[(Y_1 + Y_2)^4] \\
+        &=\E[Y_1^4] + \E[Y_2^4] + 6\E[Y_1^2]\E[Y_2^2]\\
+        &>\E[Y_1^4] + \E[Y_2^4] \\
+        &=\sum_{i=1}^{10} \E[(X_i-\E[X_i])^3]
+    \end{align*}
 \end{enumerate}
 \item $Y_n(\omega)$ is monotonically increasing and bounded by 1.
 Therefore, $Y_n \xrightarrow{a.s.} Y$. Heuristically we guess $Y$ is uniform distribution
@@ -62,20 +90,33 @@ over the interval $[0,1]$.
 \end{enumerate}
 \item 
 \begin{enumerate}[label=(\roman*)]
-    \item Since $\E[X_i^2]=i^2\frac{1}{i\ln i}=\frac{i}{\ln i}$, $\E[Y_n]=\frac{1}{n^2}\sum_{i=2}^n \E[X_i^2]=\frac{1}{n^2}\sum_{i=2}^n \frac{i}{\ln i} \leq \frac{1}{n} \frac{n}{\ln n} \to 0$.
+    \item Since $\E[X_i^2]=i^2\frac{1}{i\ln i}=\frac{i}{\ln i}$, $\E[Y_n]=\frac{1}{n^2}\sum_{i=2}^n \E[X_i^2]=\frac{1}{n^2}\sum_{i=2}^n \frac{i}{\ln i}$.
+    Let $f(x)=\frac{x}{\ln x}$. Since $f'(x)=\frac{\ln x - 1}{\ln^2 x} > 0$ for $x>e$. Then $f(i)$ is increasing for $i>=3$.
+    $\E[X_i^2]\leq \frac{1}{n^2}(\frac{2}{\ln 2} + (n-3)\frac{n}{\ln n}) \to 0$.
     Therefore, $\lim_{n\to\infty}\E[Y^2_n] = 0$.
     \item We first have $\E[Y_n]=0$. By Chebyshev's inequality,
     $P(|Y_n|>\epsilon)\leq \frac{\E[Y_n^2]}{\epsilon^2} \to 0$ as $n\to\infty$
     from (i).
     \item Let $A_n=\{\omega: |X_n(\omega)|=n\}$. Then $A = \limsup_{n\to\infty}A_n $. $P(A_n) = \frac{1}{n\log n}$,
     and $\sum_{n=1}^{+\infty} P(A_n) = \sum_{n=2}^{\infty}\frac{1}{n\log n}=+\infty$ by approximating it with $\int_{2}^{+\infty} \frac{1}{x\log x}dx$. Also $A_n$ are independent events. By Borel-Cantelli lemma, we have $P(A)=1$.
-    \item For any $\omega$, if $Y_n(\omega)$  coverges,
-    so is $X_n(\omega)$. But $X_n(\omega)$ contains
-    infinitely items whose absolute value is $n$.
-    That is, $X_n(\omega)$ does not converge. As a result,
-    $X_n$ does not converge almost surely.
+    \item If $|X_n(\omega)=n|$, then
+    \begin{align*}
+        |Y_n(\omega)-Y_{n-1}(\omega)|
+        & = \Big|\frac{X_n(\omega)}{n} - \frac{\sum_{i=1}^{n-1} X_i(\omega) }{(n-1)n} \Big| \\
+        &\geq \Big|\frac{X_n(\omega)}{n} \Big|- \Big|\frac{\sum_{i=1}^{n-1} X_i(\omega) }{(n-1)n} \Big|\\
+        &=1-\Big|\frac{\sum_{i=1}^{n-1} X_i(\omega) }{(n-1)n} \Big|\\
+        &\stackrel{(a)}{\geq} \frac{1}{2}
+    \end{align*}
+    (a) holds since 
+    \begin{align*}
+        |\sum_{i=1}^{n-1} X_i(\omega) | &\leq \sum_{i=1}^{n-1}| X_i(\omega) | \\
+        &\leq \sum_{i=1}^{n-1} i = \frac{1}{2}n(n-1)
+    \end{align*}
 \end{enumerate}
+Therefore, for the event $B_n:=\{w | Y_n(w) - Y_{n-1}(w)| > \frac{1}{2}\}$, we have $P(A_n) \leq P(B_n)$. From the analysis in
+(iii), we have $\sum_{n=1}^{+\infty}P(B_n) = +\infty$.
+Therefore, the probability of $\{w \big|\, | Y_n(w) - Y_{n-1}(w)| > \frac{1}{2} \textrm{ for infinitely many } n\}$ is 1.
+By Cauchy's convergence test, the probability of $\{w | Y_n(\omega) \textrm{ does not converge}\}$ is 1.
 \end{enumerate}
 
 \end{document}
-
