@@ -1,0 +1,164 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[thehwcnt=6]{iidef}
+\DeclareMathOperator{\bP}{\mathbb{P}}
+\DeclareMathOperator{\Bern}{Bern}
+\DeclareMathOperator{\Pois}{Pois}
+%\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\mF}{\mathcal{F}}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\usepackage{dsfont}
+\def\iso{\mathrm{iso}}
+\usepackage[utf8]{inputenc}
+\thecourseinstitute{Tsinghua-Berkeley Shenzhen Institute}
+%\title{ldp-1}
+%\author{zhaof17 }
+%\date{March 2021}
+\thecoursename{Probability}
+\theterm{Spring 2021}
+%\setlist[enumerate,2]{label=(\roman*)}
+\begin{document}
+
+\courseheader
+\name{Feng Zhao}
+
+\begin{enumerate}
+\item We first consider the probability
+of first return to zero for $2n+2$ steps:
+$f_{2n+2}=P(S_1\neq 0, S_2\neq 0, \dots, S_{2n+1}\neq =0,
+S_{2n+2}=0)=2P(X_1=1,X_1+X_2\geq 1,\dots, \sum_{i=1}^{2n+1}X_i=1,X_{2n+2}=-1)=2P(S_1\geq 0,
+S_2\geq 0,\dots, S_{2n}=0)$.
+This implies that $P(S_1\geq 0,
+S_2\geq 0,\dots, S_{2n}=0)=\frac{1}{2}f_{2n+2}
+=\frac{1}{2}\frac{1}{2n+1}P(S_{2n+2}=0)$ by the formula of $f_{n}$.
+Therefore,
+$P(S_1\geq 0,
+S_2\geq 0,\dots,S_{2n}\geq 0| S_{2n}=0)
+=\frac{1}{2}\frac{f_{2n+2}}{P(S_{2n}=0)}
+=\frac{1}{2}\frac{1}{2n+1}\frac{P(S_{2n+2}=0)}{P(S_{2n}=0)}=\frac{1}{2}\frac{1}{2n+1}\frac{\binom{2n+2}{n+1}}{\binom{2n}{n}}=\frac{1}{n+1}$.
+\item We claim that $f(p)=-\frac{1}{\log p}$.
+Let $k=c\log n$
+First notice that $P(L_i \geq k) \leq p^k = n^{c\log p}$. Then by union bound,
+$P(L^{(n)}_{\max} \geq k)
+\leq \sum_{i=1}^n P(L_i \geq k)=np^k=n^{1+c\log p}$.
+When $c>f(p)$, $1+c\log p < 0$. Therefore,
+$\lim_{n\to\infty}P(L^{(n)}_{\max} \geq k) = 0$.
+On the other hand, we will show that
+$\lim_{n\to\infty}P(L^{(n)}_{\max} < k) = 0$
+when $1+c\log p >0$.
+\begin{align*}
+    P(L^{(n)}_{\max} < k) &= 
+    P(L_i < k, \forall 1\leq i \leq n)
+    \\
+    &\leq P(L_i <k, \textrm{ for } i=1,k+1,2k+1,
+    \dots, k\lfloor \frac{n}{k} - 1\rfloor +1)\\
+    &\stackrel{(a)}{=}\prod_{j=0}^{\lfloor \frac{n}{k} - 1\rfloor}P(L_{jk+1} < k) \\
+    &=(1-p^k)^{\lfloor \frac{n}{k} - 1\rfloor} 
+    \sim \exp(-\frac{n^{1+c\log p}}{c\log n})
+    \to 0
+\end{align*}
+where (a) comes from the independent conditions
+of $X_i$.
+\item
+\begin{enumerate}
+    \item $P(N_m \geq 1 |X_1=-1)=0$ while
+    $P(N_m \geq 1 | X_1=1)$ is the probability
+    that the particle first hits $m$ before hitting
+    0 starting from position 1. This probability
+    is $\frac{1}{m}$ from the gambler's win problem
+    with two players. Then
+    $P(N_m \geq 1)=P(N_m \geq 1 | X_1=1)P(X_1=1)=\frac{1}{2m}$
+    \item $P(N_m = n)=P(N_m=n-1)\cdot \frac{1}{2}(\frac{m-1}{m}+1)=
+    \frac{2m-1}{2m} P(N_m=n-1)=
+   \frac{(2m-1)^{n-1}}{(2m)^n}$.
+\end{enumerate}
+\item \begin{enumerate}
+    \item $W=\sum_{i=1}^{N(T)} (T-T_i)$
+\begin{align*}
+    \E[W] &= \sum_{s=1}^{+\infty} P(N(T)=s)\E[W|N(T)=s] \\
+    &= \sum_{s=1}^{+\infty}
+    \frac{(\lambda T)^s e^{-\lambda T}}{s!}(\sum_{i=1}^s [T-\E[T_i | N(T)=s]])
+\end{align*}
+Given $N(T)=s$, $T_i$ is uniformly distributed in
+the interval $[0,T]$. Then $\E[T_i | N(T)=s]=\frac{T}{2}$, and
+\begin{align*}
+    \E[W]    &= \frac{T}{2}\sum_{s=1}^{+\infty}
+    \frac{(\lambda T)^s e^{-\lambda T}}{(s-1)!}\\
+    &=\frac{\lambda T^2}{2}
+\end{align*}
+\item Using the conclusion from (a) and the memoryless
+property of Poisson process, $\E[W]=\frac{\lambda S^2}{2} + \frac{\lambda (T-S)^2}{2}$
+\end{enumerate}
+\item Since $p=(1+o(1))\frac{\log n}{n}$, the probability that $G$ has an isolated subset
+with size more than 2 tends to zero as $n\to \infty$.
+Therefore $\lim_{n\to\infty}
+P(G \textrm{ is connected})
+=\lim_{n\to\infty}
+P(G \textrm{ has no isolated vertex})$.
+Let $Z_{\iso}=\sum_{v\in[n]} \mathds{1} (v \textrm{ is isolated})$. Then 
+$P(G \textrm{ has no isolated vertex})
+=P(Z_{\iso}=0)
+$. We will show that $Z_{\iso} \stackrel{d}{\to} \Pois(e^{-c})$, and obtain $P(Z_{\iso}=0)=\exp(-e^{-c})$.
+
+To achieve such purpose, we only need to show that
+$\E\binom{Z_{\iso}}{r} \to \frac{e^{-rc}}{r!}$.
+\begin{align*}
+    \E\binom{Z_{\iso}}{r}
+    &=\sum_{1 \leq  v_1
+    < v_2 < \dots < v_r \leq n}
+    P(v_i \textrm{ is isolated for all }i \in [r])
+    \\
+    &=\binom{n}{r}(1-p)^{r(n-1)-\binom{r}{2}}
+    \to \frac{e^{-rc}}{r!}
+\end{align*}
+In conclusion,
+$\lim_{n\to\infty}
+P(G \textrm{ is connected})
+=\exp(-e^{-c})$
+\item We claim that $\delta_0 = \frac{2}{3}$.
+Define a set
+\begin{align*}
+    \binom{\floor{n}}{4}
+    :=
+    \left\{
+    \{i,j,k,l\}:i,j,k,l\in [n],i<j<k<l
+    \right\}
+\end{align*}
+Let $Z_n$
+be the number of 4-vertex cliques.
+Then
+\begin{align*}
+    Z_n := \sum_{T \in \binom{\floor{n}}{4}}
+    \mathds{1}(T\in G)
+\end{align*}
+By linearity of expectation, $\E[Z_n]
+= \binom{n}{4}p^6 = O(n^{4-6\delta})$.
+If $\delta > \delta_0$, $\E[Z_n] \to 0$.
+By Markov's inequality, $P(Z_n \neq 0) \leq \E[Z_n]
+\to 0$.
+Therefore, we have shown that
+$\lim_{n\to\infty} P(G
+\textrm{ contains 4 vertices that are pairwise connected }) = 0$ if $\delta > \delta_0$.
+For the other part, we use the Chebyshev's
+inequality for $Z_n$: $P(Z_n = 0)
+\leq \frac{\Var[Z_n]}{\E[Z_n]^2}$.
+Notice that
+\begin{equation*}
+    \Var[Z_n]=
+    \sum_{S,T\in \binom{\floor{n}}{4}}
+    \Cov(\mathds{1}(S \in G), \mathds{1}(T\in G))
+\end{equation*}
+We split the summation according to $|S\cap T|=0,1,\dots, 4$. Then we have
+$\Var[Z_n]\leq c_1 n^4 p^6 + c_2 n^5 p^9 + c_3 n^6 p^{11}$ where $c_1, c_2, c_3$ are permutation constant. Then $P(Z_n = 0)
+\leq \frac{c_1}{n^4 p^6} + \frac{c_2}{n^3p^3}
++ \frac{c_3}{n^2p}=c_1 n^{6\delta - 4}
++ c_2 n^{3\delta - 3} + c_3 n^{\delta-2} \to 0$
+when $\delta < \delta_0 = \frac{2}{3}$.
+Therefore, we have
+$\lim_{n\to\infty} P(G
+\textrm{ contains 4 vertices that are pairwise connected }) = 1$ if $\delta < \delta_0$.
+\end{enumerate}
+
+\end{document}
