@@ -1,0 +1,570 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[thehwcnt=7]{iidef}
+\DeclareMathOperator{\bP}{\mathbb{P}}
+\DeclareMathOperator{\Bern}{Bern}
+%\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\mF}{\mathcal{F}}
+\usepackage[utf8]{inputenc}
+\thecourseinstitute{Tsinghua-Berkeley Shenzhen Institute}
+%\title{ldp-1}
+%\author{zhaof17 }
+%\date{March 2021}
+\thecoursename{Probability}
+\theterm{Spring 2021}
+%\setlist[enumerate,2]{label=(\roman*)}
+\begin{document}
+
+\courseheader
+\name{Feng Zhao}
+
+\begin{enumerate}
+\item Since $Y$ is a linear transformation
+of $X$, it's jointly Gaussian distribution.
+Since all $X_{ij}$ have zero mean, so are
+$Y_{ij}$. We then compute the covariance
+between $Y_{ij}$ and $Y_{i'j'}$
+for $i \leq j$ and $i' \leq j'$.
+From $Y=U^T X U$,
+\begin{align*}
+    Y_{ij} &= \sum_{k,r} u_{ik} u_{jr} X_{kr}\\
+    Y_{i'j'} &= \sum_{k,r} u_{i'k} u_{j'r} X_{kr}
+\end{align*}
+Then
+\begin{align*}
+    \E[Y_{ij} Y_{i'j'} ]
+    &= 2 \sum_{k=1}^n u_{ik} u_{jk}
+    u_{i'k} u_{j'k}
+    +\sum_{k<r}^n (u_{ik} u_{jr}
+     + u_{ir} u_{jk})(u_{i'k} u_{j'r}+
+    u_{i'r} u_{j'k}) \\
+    &= \sum_{k,r} u_{ik} u_{jr}
+    u_{i'k} u_{j'r}
+    + \sum_{k,r} u_{ik} u_{j'k}
+    u_{i'r} u_{jr} \\
+    &=(\sum_{k=1}^n u_{ik}
+    u_{i'k})(\sum_{r=1}^n u_{ir}
+    u_{i'r})
+    + (\sum_{k=1}^n u_{ik}
+    u_{j'k})(\sum_{r=1}^n u_{i'r}
+    u_{jr})
+\end{align*}
+From the orthogonality of $U$,
+\begin{equation*}
+\E[Y_{ij} Y_{i'j'} ]
+= \begin{cases}
+2 & \textrm{ if } i=i' \textrm{ and } j=j' \textrm{ and } i=j\\
+1 & \textrm{ if } i=i' \textrm{ and } j=j' \textrm{ and } i\neq j\\
+0  & \textrm{ if } i\neq i' \textrm{ or } j\neq j'
+\end{cases}
+\end{equation*}
+
+Therefore, $Y_{ij}\sim N(0,1)$ for $i\neq j$
+and $Y_{ii} \sim N(0,2)$,
+and all entries on and above the diagonal of
+$Y$ are independent.
+\item We first compute the marginal distribution
+of $X_i$ by recursive formula.
+Let $Y_i$ be i.i.d. $\Bern(\frac{1}{5})$ and $Y_i$
+are independent with $X_i$.
+We have $X_i = Y_i + (1-Y_i)\prod_{j=1}^4(1-X_{i-j})$.
+Then $P(X_i = 1)=P(Y_i=1) + P(Y_i=0,X_{i-j}=0,j=1,2,3,4)
+=\frac{1}{5}+P(Y_{i-j}=0,j=0,1,2,3,4, X_{i-5}=1)
+=\frac{1}{5}+(\frac{4}{5})^5 P(X_{i-5}=1)$.
+Thus we get a recursive formula, and
+$P(X_n=1)\to \frac{625}{2101}$. The limit random
+variable equals $\frac{625}{2101}$ with probability
+1.
+
+We observe that for consecutive five numbers, there
+is at least 1; and if $X_n=1$, $X_{n+1}, X_{n+2},
+\dots$ are independent with $X_{1}, \dots, X_{n}$.
+Let $S_n=\frac{\sum_{i=1}^n}{n}$.
+Since $S_{5n+j} = \frac{5n}{5n+j}(S_{5n} + \frac{X_{5n+1}+\dots + X_{5n+j}}{5n})$ for $j=1,2,3,4$ has the same limit with $S_{5n}$.
+We only need to show $S_{5n}$ almost surely converges.
+Therefore, we split $S_{5n}=\frac{1}{5}\sum_{j=1}^5 T_j$
+where $T_j
+= \frac{1}{n}(X_j + X_{5+j} + \dots + X_{5n-5+j})$.
+Since $X_i$ is independent with $X_{i+5}$
+for any $i$, we can apply strong law of large number
+(not necessarily with the same
+distribution) to obtain that $T_j$ almost surely
+converges.
+\item 
+\begin{enumerate}
+    \item Let $X'_n = X_n + n$, which
+    represents the first arriving position when hit $[n,+\infty)$ (starting
+    from $X'_0=0$).
+    Since $Y_1, Y_2, \dots $ are
+    independent, it is easy to check that
+    $X'_n$ forms a Markov chain.
+    Consider $P(X'_{n+1}=m'| X'_n=m)$.
+    If $m\geq n+1$, then $P(X'_{n+1}=m| X'_n=m)=1$.
+    If $m=n$, then
+    $P(X'_{n+1}=n+i|X'_n=n)=
+    \sum_{j=0}^{+\infty} p_i p_0^j
+    =\frac{p_i}{1-p_0}$.
+    Therefore, the transition probabilities
+    for $X_n$ is given by
+    $P(X_{n+1}=i-1 | X_n=0) = \frac{p_i}{1-p_0}$
+    for $i\geq 1$.
+    $P(X_{n+1}=i-1|X_n=i)=1$
+    for $i\geq 1$.
+    \item $f(n)=P(X_n=0)$. $\lim_{n\to \infty} f(n)$
+    exists means that
+    the stationary distribution of this Markov chain exists. Since the state $0$ has return probability 1. The chain is recurrent.
+    We compute the expected return time
+    as $T=1+\sum_{i=1}^{+\infty} i\frac{p_{i+1}}{1-p_0} = \frac{\mu}{1-p_0} <\infty$. Notice that $\mu\geq 1-p_0$ from
+    the definition of $\mu$. Besides, we need
+    the aperiodic condition to make sure
+    the limit $\lim_{n\to \infty}$
+    exists. For our Markov chain, we formulate this condition
+    as
+    $\textrm{gcd}\{i | p_i > 0\}=1$ (gcd means the greatest common divisor). This is the sufficient and necessary condition for the existence
+    of the limit.
+    \item By the property of stationary
+    distribution
+    $\lim_{n\to \infty} f(n)=\frac{1}{T}=\frac{1-p_0}{\mu}$.
+\end{enumerate}
+\item \begin{enumerate}
+    \item The probability that
+    the chain never returns to state 0
+    equals $\frac{6}{\pi^2}$.
+    For this birth and death process.
+    Let $h_i$ be the probability that the chain
+    hits state 0 starting from state $i$.
+    Since $p_{0,1}=1$, we only need to show that
+    $h_1 = 1-\frac{6}{\pi^2}$. Another boundary
+    condition is $h_0 = 1$. The transition
+    probability is given by
+    \begin{align*}
+        p_{i,i-1} & = 
+        \frac{i^2}{i^2+(i+1)^2} \\
+        p_{i,i+1} &=
+        \frac{(i+1)^2}{i^2+(i+1)^2}
+    \end{align*}
+    The recursive formula
+    is given by
+    \begin{align*}
+        h_i = \frac{(i+1)^2}{i^2+(i+1)^2}
+        h_{i+1} + \frac{i^2}{i^2+(i+1)^2} h_{i-1}
+    \end{align*}
+    We can transform the above equation into
+    $(i+1)^2 (h_{i+1} - h_i)
+    =i^2(h_i - h_{i-1})
+    \to h_{i+1} - h_i=[\prod_{j=1}^i \frac{j^2}{(j+1)^2}] (h_1 - h_0) = \frac{1}{(i+1)^2} (h_1 -h_0)$.
+    Therefore, the general solution is given
+    by $h_i - h_0 = [\sum_{j=1}^i \frac{1}{j^2}] (h_1 - h_0) \to h_i = 1+[\sum_{j=1}^i \frac{1}{j^2}](h_1-1)$. By the minimality and
+    non-negativity of $h_i$, we have
+    $1+[\sum_{j=1}^{+\infty} \frac{1}{j^2}](h_1-1)=0$.
+    Since the series sums up to $\frac{\pi^2}{6}$,
+    we get our result that $h_1 = 1-\frac{6}{\pi^2}$.
+    \item We claim that
+    the chain is positive recurrent for $\alpha < -1$,
+    null recurrent for $-1 \leq \alpha  \leq 1$, and
+    transient for $\alpha > 1$.
+    The general solution for $h_i$
+    is given by $h_i = 1+[\sum_{j=1}^i \frac{1}{j^{\alpha}}](h_1-1)$. If $\alpha>1$,
+    the series $\sum_{j=1}^i \frac{1}{j^{\alpha}}$
+    converges and $h_1 < 1$, therefore the chain is transient.
+    On the other hand, if $\alpha \leq 1$,
+    the series $\sum_{j=1}^i \frac{1}{j^{\alpha}}$ diverges and $h_i=1$. Using
+    $p_{0,1}=1$ and $h_1=1$, we find the return probability
+    for node $0$ is 1. Then the chain is recurrent
+    for $\alpha \leq 1$.
+    
+    Let $k_i$ be the expected time of hitting 0 when
+    starting from state $i$.
+    Then $k_i$ is the minimal non-negative
+    solution to
+    \begin{align*}
+        k_0 = 0, \quad
+        k_i = 1 + \frac{(i+1)^\alpha}{i^\alpha+(i+1)^\alpha}
+        k_{i+1} + \frac{i^\alpha}{i^\alpha+(i+1)^\alpha} k_{i-1}
+    \end{align*}
+    Then we have
+    \begin{align*}
+        (i+1)^{\alpha}
+        (k_{i+1} - k_i)
+        = i^{\alpha}
+        (k_i - k_{i-1})
+        - (i^{\alpha} + (i+1)^{\alpha})
+    \end{align*}
+    Let $a_i = i^{\alpha}(k_i - k_{i-1})$,
+    we get $a_{i+1}=a_i - (i^{\alpha} + (i+1)^{\alpha})
+    = a_1 - \sum_{j=1}^i (j^{\alpha} + (j+1)^{\alpha})$.
+    Since $a_1=k_1$, we get
+    \begin{align*}
+        k_{i+1} - k_i = \frac{k_1
+        -\sum_{j=1}^i (j^{\alpha}
+        +(j-1)^{\alpha})}{(i+1)^{\alpha}}
+    \end{align*}
+    As a result, we get
+    \begin{align*}
+        k_i = \sum_{r=1}^i \frac{
+        k_1 - \sum_{j=1}^r (j^{\alpha}
+        +(j-1)^{\alpha})}{r^{\alpha}}
+    \end{align*}
+    To make $k_i>0$, we have
+    \begin{align*}
+        k_1 > \frac{\sum_{r=1}^{i}r^{-\alpha}\sum_{j=1}^r j^{\alpha}}{\sum_{r=1}^{i} r^{-\alpha}}
+    \end{align*}
+    holds for any $i$.
+    To compare the order of the numerator
+    with the denominator, we estimate
+    the summation by integration.
+    $\sum_{j=1}^r j^{\alpha} \approx
+    \frac{r^{\alpha + 1} - 1}{\alpha + 1}$ for $\alpha \in (-1,1]$. Therefore,
+    the numerator is actually order of $i^2$
+    while the denominator is of order $i^{1-\alpha}$.
+    Let $i\to \infty$ we have $k_1 = +\infty$ for $\alpha \in (-1,1]$. For $\alpha=-1$,
+    the numerator becomes $\sum_{r=1}^i r\log r = O(r^2\log r)$ while the denominator is $O(r^2)$.
+    Therefore, $\alpha=-1$ also makes $k_1=+\infty$.
+    The expected return time becomes infinite for
+    $\alpha \in [-1,1]$. Therefore, the chain
+    is null-recurrent for $-1\leq \alpha \leq 1$.
+    
+    When $\alpha < -1$, the series
+    $\sum_{j=1}^r j^{\alpha}$ converges, then
+    we can verify that
+    $\sum_{j=1}^{\infty} ((j-1)^{\alpha}+j^{\alpha}) $ is an upper bound for $k_1$. The expected time
+    of returning to 0 starting from 0 is $1+k_1$.
+    Therefore, the state 0 is positive recurrent.
+    So is the whole chain.
+\end{enumerate}
+\item Answer: the chain is transient
+when $\frac{3-\sqrt{5}}{2}<p<1$;
+null recurrent when $p=\frac{3-\sqrt{5}}{2}$;
+positive recurrent when $0<p<\frac{3-\sqrt{5}}{2}$.
+
+To prove our conclusion, first we consider
+the probability of hitting $0$ starting from $i$. We denote it as $h_i$. Then the recursive
+formula for $h_i$ is given by
+\begin{align*}
+    h_{2i} &= (1-p) h_{2i-2} + p h_{2i+1} \\
+    h_{2i-1} &= p h_{2i+1} + (1-p) h_{2i}
+\end{align*}
+We can write this relationship in matrix form:
+\begin{equation*}
+    \begin{pmatrix}
+    p & 1-p \\
+    -p & 1
+    \end{pmatrix}
+    \binom{h_{2i+1}}{h_{2i}}
+    =    \begin{pmatrix}
+    1 & 0 \\
+    0 & 1-p
+    \end{pmatrix}
+    \binom{h_{2i-1}}{h_{2i-2}}
+\end{equation*}
+Let $\tilde{h}_i = \binom{h_{2i+1}}{h_{2i}}$,
+we get the recursive relationship for
+$\tilde{h}_i$ as
+\begin{align*}
+    \tilde{h}_{i+1}
+    = \frac{1}{2p-p^2}\begin{pmatrix}
+    1 & -(1-p)^2 \\
+    p & p(1-p)
+    \end{pmatrix}\tilde{h}_{i}
+\end{align*}
+The transformation matrix has two eigenvalues
+$1$ and $\frac{1-p}{2p-p^2}$. $p=\frac{3-\sqrt{5}}{2}$ makes both of the two eigenvalues equal 1. When $p>\frac{3-\sqrt{5}}{2}$, $h_{2i}=c(\frac{1-p}{2p-p^2})^{2i} < 1 \Rightarrow$
+the chain is transient. When
+$p=\frac{3-\sqrt{5}}{2}$, we can verify that
+the expected return time is infinity.
+Therefore, the chain is null-recurrent.
+
+If the Markov chain is positive recurrent. Using
+$x = x P$ we can get $x_0 = c$ and
+
+\begin{align*}
+x_{2n} &= \frac{p^{n-1} c (2-p)^{n-1}}{(1-p)^n} (n\geq 1) \\
+x_{2n+1} & = \frac{p^n c (2-p)^n}{(1-p)^n} (n\geq 0)
+\end{align*}
+This result can be proved using induction ($x=xP$) on:
+\begin{align*}
+    (1-p)(x_{2n-1} + x_{2n+2}) &= x_{2n} \\
+    p(x_{2n-1} + x_{2n}) &= x_{2n+1}
+\end{align*} for $n\geq 1$
+while the initial condition is
+$x_0=x_1=c, x_2(1-p)=x_0$.
+Although the transition matrix $P$ is infinite, we can
+still use the steady state equation.
+
+$c$ is the normalization constant such that
+$\sum_{n=0}^{+\infty} x_n = 1$.
+We obtain $c=\frac{p^2-3p+1}{(1-p)(3-p)}$.
+The series converges if $\frac{p(2-p)}{1-p} < 1$,
+from which we can get the necessary condition on $p$ for
+the Markov chain to be positive-recurrent:
+$p < \frac{3-\sqrt{5}}{2}$.
+We further guess that the chain is null-recurrent
+when $p=\frac{3-\sqrt{5}}{2}$
+and transient when $p > \frac{3-\sqrt{5}}{2}$.
+When the chain is positive recurrent,
+the stationary distribution is given by
+\begin{align*}
+x_0 &=\frac{p^2-3p+1}{(1-p)(3-p)}\\
+x_{2n} &= \frac{p^2-3p+1}{(1-p)(3-p)}\frac{p^{n-1} (2-p)^{n-1}}{(1-p)^n} (n\geq 1) \\
+x_{2n+1} & = \frac{p^2-3p+1}{(1-p)(3-p)}\frac{p^n (2-p)^n}{(1-p)^n} (n\geq 0)
+\end{align*}
+\item
+\begin{enumerate}[label=(\roman*)]
+    \item Let $x_1=\E[T|X_0=Y_0=0],
+    x_2=\E[T|X_0=1,Y_0=0],
+    x_3=\E[T|X_0=2,Y_0=0],
+    x_4=\E[T|X_0=1,Y_0=1],
+    x_5=\E[T|X_0=1,Y_0=2],
+    x_6=\E[T|X_0=2,Y_0=2]
+    $.
+    By the symmetric property, we can establish
+    a linear equation system about $x_1,\dots, x_6$ as
+    \begin{align*}
+        x_1 &= \frac{1}{4}(4x_2) + 1\\
+        x_2 & = \frac{1}{4}(x_3+2x_4+x_1)+1\\
+        x_3 &= \frac{1}{4}(x_2 + 2x5) + 1 \\
+        x_4 &=\frac{1}{4} (2x_2 + 2x_5) + 1\\
+        x_5 &=\frac{1}{4}(x_3+x_4+x_6) +1\\
+        x_6&=\frac{1}{4}(2x_5+1)
+        \end{align*}
+    Using symbolic computation software (like
+    \texttt{sympy} we can get $x_1=\frac{135}{13}$, which is $\E[T]$
+    as required.
+    $P(X_T=3,Y_T=0)$ is the probability that the
+particle reaches $(3,0)$ before it reaches all other particles on $T$. By solving a linear
+equation system with 15 unknown variables,
+\begin{align*}
+                4  x_1 - x_2 - x_6=0 \quad&
+             4x_2-x_1 - x_3 -x_7=0 &&
+            4x_3-x_2-x_4-x_8 =0\\
+            4x_4-x_3-x_5-x_9=0 \quad &
+            4x_5-x_4-x_{10}=0&&
+            4x_6-x_1-x_7-x_{11}=0\\
+            4x_7-x_2-x_6-x_8-x_{12}=0  \quad&
+            4x_8-x_3-x_7-x_9-x_{13}=0 &&
+            4x_9-x_4-x_8-x_10-x_{14}=0 \\
+            4x_{10}-x_5-x_9-x15=0  \quad& 
+            4x_{11}-2x_6-x_{12} =0 &&
+            4x_{12}-2x_7-x_{11}-x_{13} =0\\
+            4 x_{13}-2 x_8-x_{12}-x_{14} =0 \quad&
+            4 x_{14}-2 x_9-x_{13}-x_{15} =0&&
+            4 x_{15}-2 x_{10}-x_{14}-1=0 \\
+\end{align*}
+
+we get $P(X_T=3,Y_T=0)=x_{13}=\frac{1}{13}$.
+\item Using same method as above, we have $\E[T]=\frac{39}{7}$ and $P(X_T=3,Y_T=0)=\frac{1}{28}$
+\item 
+The basic idea is first consider
+$T_N:=\int\{n\geq 0: |Y_n|\leq 2, -2\leq X_n \leq N \}$. and let $N \to \infty$.
+Let $x_n=\E[T|X_0=n-2,Y_n=1], y_n=\E[T|X_0=n-2,Y_n=0]$.
+By symmetric property, $x_n=\E[T|X_0=n-2,Y_n=-1]$.
+The recursive formulas for $x_n, y_n$
+are
+\begin{align*}
+    x_n &= 1 + \frac{x_{n-1} + x_{n+1}
+    +y_n}{4}\\
+    y_n &= 1 + \frac{2x_{n} + y_{n+1}+y_{n-1}}{4}
+    \end{align*}
+Let $A_{n} = (x_n, y_n, x_{n-1}, y_{n-1})^T,
+q = (-4,-4,0,0)^T$ and the matrix $P$
+is defined as
+$$
+P=
+\begin{pmatrix}
+4&-1&-1&0\\
+-2&4&0&-1\\
+1&0&0&0\\
+0&1&0&0
+\end{pmatrix}
+$$
+Then we have $A_{n+1}=PA_n + Q$
+Let $v$ satisfies $(I-P)v=q$ which allows $v=(6,8,6,8)^T$, and $\widetilde{A}_n=A_n-v$, then we have
+$\widetilde{A}_{n+1}=P\widetilde{A}_n$, which
+is a homogeneous recurrence equation system.
+The characteristic function is $\lambda^4-8\lambda^2+16\lambda^2-8\lambda+1=0$,
+which can be transformed as
+$\mu^2-8\mu+14=0$ where $\mu=\lambda+\frac{1}{\lambda}$.
+Suppose $\widetilde{A}_{n+1}=(\tilde{x}_{n+1},
+\tilde{y}_{n+1},\tilde{x}_{n},\tilde{y}_{n})$.
+The general formula for $\tilde{x}_{n}$
+is $\tilde{x}_{n} = a \lambda_1^n + b \lambda_2^n + c\lambda_3^n + d \lambda_4^n$.
+Using $\tilde{x}_n = \frac{\tilde{x}_{n-1} + \tilde{x}_{n+1}
+    +\tilde{y}_n}{4}$ we get
+    $\tilde{y}_{n} = a (1-\lambda_1-\frac{1}{\lambda_1})\lambda_1^n + b (1-\lambda_2-\frac{1}{\lambda_2})\lambda_2^n + c(1-\lambda_3-\frac{1}{\lambda_3})\lambda_3^n + d (1-\lambda_4-\frac{1}{\lambda_4})\lambda_4^n$.
+The boundary condition is that $\tilde{x}_0=-6,
+\tilde{y}_0=-8,\tilde{x}_N=-6,
+\tilde{y}_N=-8$. After analysis of the four
+roots $\lambda_1\dots \lambda_4$,
+we find there are exactly two roots which are larger than 1. Assume they are $\lambda_2>1,\lambda_4>1$.
+Then from the two equations $\tilde{x}_N=-6,
+\tilde{y}_N=-8$ we get $b,d\to 0$ as $N\to \infty$. Therefore, we only need to solve
+$a,c$ in the limit case, that is
+\begin{align*}
+    a + c &= -6\\
+    a(1-\lambda_1-\frac{1}{\lambda_1}) + c(1-\lambda_3-\frac{1}{\lambda_3})& = -8
+\end{align*}
+Assume $\lambda_1 > \lambda_3$, we can get
+$1-\lambda_1-\frac{1}{\lambda_1}=\sqrt{2}$
+and $1-\lambda_3-\frac{1}{\lambda_3}=-\sqrt{2}$
+by solving $\mu^2-8\mu=14$.
+Therefore, we get $a=-3-2\sqrt{2}$ and $c=-3+2\sqrt{2}$. The required expectation
+$\E[T]=a(1-\lambda_1-\frac{1}{\lambda_1})\lambda_1^2+c(1-\lambda_3-\frac{1}{\lambda_3})\lambda_3^2+6$, in which we need the value of $\lambda_1$
+and $\lambda_3$, given by
+\begin{align*}
+    \lambda_1 = \frac{k-\sqrt{k^2-4}}{2} & \textrm{ where } k=4-\sqrt{2} \\
+        \lambda_3 = \frac{k-\sqrt{k^2-4}}{2} & \textrm{ where } k=4+\sqrt{2} \\
+\end{align*}
+After simplification, we get
+$\E[T]=-8+(8+5\sqrt{2})\sqrt{7-4\sqrt{2}}
++(-8+5\sqrt{2})\sqrt{7+4\sqrt{2}} \approx 6.16
+$. Using similar techniques in (i) we can compute
+$P(X_T=-2,Y_T=0)=8-\frac{(2\sqrt{2}-1)\sqrt{7-4\sqrt{2}} + (2\sqrt{2}+1)\sqrt{7+4\sqrt{2}}}{2}\approx 0.13$
+\item $\E[T]=+\infty$. To prove this, we first
+reduce the 2d random walk to 1d.
+Define $S_{2n}=\sum_{i=1}^n(X_i+Y_i)$
+and $S_{2n+1}=S_{2n} + X_{n+1}$.
+Then $\E[T]=\sum_{n=1}^{+\infty} 2n P(S_2\neq 2,\dots, S_{2n-2}\neq 2, S_{2n}=2)$.
+Notice that $S_{2n+1}$ is an even number and
+$S_{2n+1}\neq 2$ always holds. Therefore,
+$\E[T]=\sum_{n=1}^{+\infty} 2n P(S_1\neq 2,\dots, S_{2n-1}\neq 2, S_{2n}=2)
+=\sum_{n=1}^{+\infty} n P(S_1\neq 2,\dots, S_{n-1}\neq 2, S_{n}=2)$. That's to say,
+$\E[T]$ is the expected time for a particle
+hits $2$ in a 1d random walk (starting from $S_0=0$. We can also transform the problem
+to the expected time for a particle hits $0$
+starting from $2$. First assume the walk
+is bounded with $[0, N]$, then the expected time is $2(N-2)$. Let $N\to \infty$, we get $\E[T]=+\infty$.
+\end{enumerate}
+\item 
+\begin{enumerate}
+    \item Let $\sum_{i=1}^{\infty} a_i^2 = D$. 
+    By Chebyshev's
+    inequality,
+    $P(|\sum_{i=1}^n a_i X_i|>k)
+    \leq \frac{\sum_{i=1}^{n} a_i^2 }{4k^2}
+    \leq \frac{D}{4k^2}$ holds for any $n$.
+    Define the event $A_k$
+    as $\{\exists n, s.t. |\sum_{i=1}^n a_i X_i| > k \}$. Then $A_k \supset A_{k+1}$,
+    and $P(A_k) \leq \frac{D}{4k^2}$.
+    Therefore, $\sum_{k=1}^{\infty} P(A_k) < +\infty$.
+    By Borel-Cantelli Lemma, $P(\lim_{k\to \infty} A_k)=0$. That is, $P(\sum_{i=1}^{n} a_i X_i\textrm{ diverges})=0 \implies 
+    P(|\sum_{i=1}^{\infty} a_i X_i| <\infty)=1$.
+\end{enumerate}
+\item \begin{enumerate}
+    \item The probability is $\frac{2}{7}$.
+Let $h_{i,j}$ represents the probability
+of the sequence $\{X_{n}\}$
+reaching 3 before returning to 0 with the initial condition $X_0=i, X_1=j$.
+We are required to compute $h_{0,1}$.
+The boundary condition includes $h_{1,0}=0, h_{2,3}=1, h_{1,3}=1$ and so on.
+The relationship between different $h_{i,j}$
+is given by
+$h_{i,j}=\frac{1}{2}(h_{j,i+j} + h_{j,|i-j|})$.
+From $h_{0,1}=h_{1,1}, h_{1,1}=\frac{1}{2}h_{1,2}, h_{1,2}=\frac{1}{2} h_{2,1} + \frac{1}{2},
+h_{2,1}=\frac{1}{2} h_{1,1} + \frac{1}{2}
+\Rightarrow h_{0,1} = \frac{3}{7}$.
+\item First we show that
+$P(\exists n \textrm{ such that } X_n =j, X_{n+1} = i | X_0 = i, X_1 = i+j) = p$
+for any $i\geq 1, j\geq 1$. Let $+$
+represents the choice of $X_i = X_{i-1}
++X_{i-2}$ and $-$ represents the choice of
+$X_i = |X_{i-1} - X_{i-2}|$. The consecutive
+occurrence of $+--$ makes the state return
+to itself, otherwise, $X_i$ becomes too large
+to make the pattern $X_n=j, X_{n+1}=i$ occurs.
+In summary, if the number of $+$ is $r$,
+the number of $-$ should be $2r+2$. This
+property is irrelevant with $i,j$.
+Similarly we can show that
+$P(\exists n \textrm{ such that } X_n =j, X_{n+1} = i | X_0 = i+j, X_1 = i) = q$.
+The relationship
+of $p,q$ can be solved by a linear equation
+system. We consider $p_{i,j}=P(\exists n \textrm{ such that } X_n =1, X_{n+1} = 1 | X_0 = i, X_1 = j)$. Then
+$p_{1,2} = \frac{1}{2} p_{2,3} + \frac{1}{2}
+p_{2,1}, p_{2,1} = \frac{1}{2} + \frac{1}{2}p_{1,3}$. Notice that $p_{1,2}=p, p_{2,1}=q$. Besides, starting from $X_0=2, X_1=3$, the sequence needs to pass $X_m=1, X_{m+1}=2$ before it can reach $X_{n}=1, X_{n+1}=1$. Therefore $p_{2,3} = p_{1,2}P(\exists n \textrm{ such that } X_n =1, X_{n+1} = 2 | X_0 = 2, X_1 = 3)=p^2$.
+Similar analysis gives $p_{1,3}=pq$.
+The linear equation system for $p,q$ is
+\begin{align*}
+    p &= \frac{1}{2} p^2 + \frac{1}{2}q \\
+    q &=\frac{1}{2} + \frac{1}{2} pq
+\end{align*}
+Eliminating $q$, we have $(p-1)(p^2 - 3p+1)=0$.
+ 
+\end{enumerate}
+\item First we have $\E[X_n | X_{n-1}] = \frac{1}{2}
+X_{n-1}^2 + \frac{1}{2} (2X_{n-1} - X^2_{n-1})
+= X_{n-1}$. $2X_{n-1} - X^2_{n-1}
+=X_{n-1}(2-X_{n-1}) \leq (\frac{X_{n-1} + 2 - X_{n-1}}{2})^2=1 \Rightarrow 0 \leq X_n \leq 1$. Therefore, $(X_n,n=0,1,\dots)$ is a martingale. By the Martingale Convergence
+Theorem, $X_n \xrightarrow{a.s.} X$.
+By the law of total expectation,
+$\E[X_n]=\E[\E[X_n|X_{n-1}]] = \E[X_{n-1}]=\E[X_0]=q$.
+By the dominated convergence theorem,
+$\E[X]=\lim_{n\to \infty} \E[X_n]=q$.
+Since $0\leq X \leq 1$, $\E[X^k] \leq \E[X]=q$.
+On the other hand,
+\begin{align}
+    \E[X_{n}^k]
+&=\E[\E[X^k_n|X_{n-1}]]
+=\E[\frac{1}{2} (X_{n-1}^2)^k
++ \frac{1}{2} (2X_{n-1} - X_{n-1}^2)^k ]
+\label{eq:knr}\\
+&=\E[X^k_{n-1}\left(
+\frac{X_{n-1}^k + (2-X_{n-1})^k}{2}
+\right)]
+\geq \E[X_{n-1}^k]
+\end{align}
+
+Therefore,
+$\E[X_{n}^k]$ is an increasing sequence about $n$ for fixed $k$. Since $\E[X_{n}^k] \leq q$,
+$\lim_{n\to \infty} \E[X_n^k]$ exists.
+By the dominated convergence theorem,
+$\E[X^k] = \lim_{n\to\infty} \E[X_{n}^k]$.
+In equation \eqref{eq:knr}, let $k=2$,
+we have
+$\E[X_{n}^2] = \E[X_{n-1}^4]
++2\E[X_{n-1}^2] - 2\E[X_n^3]$.
+Taking the limit $n\to \infty$ on both
+sides of the equality, we have
+$\E[X^4]+\E[X^2]-2\E[X^3]=0 \Rightarrow
+\E[X^2(X-1)^2]=0$. Therefore, $X$ only
+takes value $0$ or $1$. It is a Bernoulli
+random variable. By $\E[X]=q$, the parameter
+of this Bernoulli distribution is $q$.
+\item We claim that $(X_1^{(n)},
+X_2^{(n)}, X_3^{(n)})
+$ follows the standard normal distribution, and
+they are independent.
+Let $V_n(R)$ be the volume of the $n$
+dimensional ball with radius $R$.
+The formula for $V_n(R)$
+is given by $V_n(R)=\frac{\pi^{n/2}}{\Gamma(\frac{n}{2}+1)}R^n$. Then the joint distribution
+for $(X_1^{(n)},
+X_2^{(n)}, X_3^{(n)})
+$ is given by
+\begin{align*}
+    p_n(x_1, x_2, x_3)
+    &= \frac{1}{V_n(n)}
+    \int_{x_4^2+\dots + x_n^2 \leq n - S} dx_4\dots dx_n \\
+    &= \frac{1}{V_n(n)} V_{n-3}(\sqrt{n-S})
+    \textrm{ where } S=x_1^2 + x_2^2 + x_3^2 \\
+    & = \frac{\Gamma(\frac{n}{2} + 1)}{\pi^{\frac{n}{2}}} n^{-n/2}
+    \frac{\pi^{\frac{n-3}{2}}}{\Gamma(\frac{n-3}{2} + 1)} (n-S)^{\frac{n-3}{2}}
+\end{align*}
+Now we take the limit $n\to \infty$ in the above
+equation for fixed $S$, using the Stirling's
+formula for Gamma function:
+$\Gamma(x+1) \sim \sqrt{2\pi x}(\frac{x}{e})^x$,
+we have
+\begin{align*}
+    p_n(x_1, x_2, x_3) \sim
+    & \frac{e^{-s/2}}{\pi^{3/2}}
+    \frac{\Gamma(\frac{n}{2}+1)}{\Gamma(\frac{n}{2}-\frac{1}{2})}\cdot (n-S)^{\frac{3}{2}}
+    \\
+    \sim &
+    \frac{\exp(-\frac{S}{2})}{(2\pi)^{\frac{3}{2}}}
+\end{align*}
+Therefore, the limit distribution for $(X_1^{(n)},
+X_2^{(n)}, X_3^{(n)})
+$ is the standard normal distribution.
+\end{enumerate}
+\end{document}
