@@ -40,7 +40,7 @@ S_2\geq 0,\dots,S_{2n}\geq 0| S_{2n}=0)
 =\frac{1}{2}\frac{1}{2n+1}\frac{P(S_{2n+2}=0)}{P(S_{2n}=0)}=\frac{1}{2}\frac{1}{2n+1}\frac{\binom{2n+2}{n+1}}{\binom{2n}{n}}=\frac{1}{n+1}$.
 \item We claim that $f(p)=-\frac{1}{\log p}$.
 Let $k=c\log n$
-First notice that $P(L_i \geq k) \leq p^k = n^{c\log p}$. Then by union bound,
+First notice that $P(L_i \geq k) = p^k = n^{c\log p}$. Then by union bound,
 $P(L^{(n)}_{\max} \geq k)
 \leq \sum_{i=1}^n P(L_i \geq k)=np^k=n^{1+c\log p}$.
 When $c>f(p)$, $1+c\log p < 0$. Therefore,
@@ -60,7 +60,54 @@ when $1+c\log p >0$.
     \to 0
 \end{align*}
 where (a) comes from the independent conditions
-of $X_i$.
+of $X_i$. Note: the result implies that
+$\frac{L^{(n)}_{\max}}{\log (n)} \xrightarrow{p} -\frac{1}{\log p}$.
+
+We can further show that
+\begin{equation}\label{eq:limsup}
+    \limsup_{n\to \infty} \frac{L_n}{\log (n)}
+     = f(p) \textrm{ with probability } 1
+\end{equation}
+The above equation is guaranteed if
+\begin{align}
+    P( L_n \geq c \log (n) \textrm{ occurs infinitely often}) = 0 \textrm{ for any constant } c > f(p) \label{eq:largeL}\\
+    P( L_n \geq c \log (n) \textrm{ occurs infinitely often}) = 1 \textrm{ for any constant } c < f(p) \label{eq:smallL}
+\end{align}
+Notice that \eqref{eq:limsup} says that
+$\lim_{m\to \infty} \sup_{n\geq m} \frac{L_n}{\log p} = f(p)$ with probability 1.
+Then for any $\epsilon>0$,
+$\lim_{m\to \infty}P(|\sup_{n\geq m} \frac{L_n}{\log n}-f(p)|>\epsilon)=0$
+Let $C_n(\epsilon)=\{w\Big|\, | \frac{L_n(w)}{\log n}-f(p)|>\epsilon\}$.
+Then $P(\limsup_{n\to\infty}C_n) = 0$.
+Further let
+$A_n(\epsilon)=\{w\Big|\,  \frac{L_n(w)}{\log n}-f(p)>\epsilon \}$ and 
+$B_n(\epsilon)=\{w\Big|\,  \frac{L_n(w)}{\log n}-f(p)<-\epsilon \}$. Then $\limsup_{n\to \infty}C_n (\epsilon)\subset \limsup_{n\to \infty}A_n(\epsilon) \bigcup\liminf_{n\to\infty}B_n(\epsilon)$.
+Therefore, \eqref{eq:largeL} and \eqref{eq:smallL} imply \eqref{eq:limsup}.
+
+We can use Borel Cantelli lemma to prove
+\eqref{eq:largeL}. We will show that
+$\sum_{n=1}^{\infty} P(L_n\geq c\log (n))=\sum_{n=1}^{\infty} n^{c\log p} <+\infty$.
+Since $c\log p < -1$, the converge of the series
+is guaranteed.
+
+To prove \eqref{eq:smallL}, we cannot use Borel Cantelli lemma directly since the events are not
+independent. We consider $P(\liminf_{n\to\infty}B_n(\epsilon))$ with $\epsilon=f(p)-c$. That is,
+we will prove $\lim_{m\to \infty}
+P(\cap_{n=m}^{+\infty} \{w \Big|
+L_n(w) < c\log n \} )=0$.
+Since $P(\cap_{n=m}^{+\infty} \{w \Big|
+L_n(w) < c\log n \} )$ is an non-decreasing sequence about $m$,
+we only need to show
+$P(\cap_{n=m}^{+\infty} \{w \Big|
+L_n(w) < c\log n \} )=0$ for any $m$. Let $k=c\log n$. When we consider $n=m,m+k,m+2k,\dots$,
+the event series $B_n(\epsilon)$ becomes independent. Since
+$P(L_n<k)=1-p^k$, we have
+$P(\cap_{n=m}^{+\infty} \{w \Big|
+L_n(w) < c\log n \} ) \leq 
+\prod_{t=0}^{+\infty}(1-p^{c \log (m+tk)})$. Since $c\log p > -1$,
+$\sum_{t=0}^{+\infty} (m+tk)^{c\log p} = +\infty
+\Rightarrow \sum_{t=0}^{+\infty}\log(1-p^{c\log (m+tk)}) = -\infty \Rightarrow 
+\prod_{t=0}^{+\infty}(1-p^{c \log (m+tk)})=0$.
 \item
 \begin{enumerate}
     \item $P(N_m \geq 1 |X_1=-1)=0$ while
@@ -72,7 +119,7 @@ of $X_i$.
     $P(N_m \geq 1)=P(N_m \geq 1 | X_1=1)P(X_1=1)=\frac{1}{2m}$
     \item $P(N_m = n)=P(N_m=n-1)\cdot \frac{1}{2}(\frac{m-1}{m}+1)=
     \frac{2m-1}{2m} P(N_m=n-1)=
-   \frac{(2m-1)^{n-1}}{(2m)^n}$.
+   \frac{(2m-1)^{n-1}}{(2m)^{n+1}}$.
 \end{enumerate}
 \item \begin{enumerate}
     \item $W=\sum_{i=1}^{N(T)} (T-T_i)$
